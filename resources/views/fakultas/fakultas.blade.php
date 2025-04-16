@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="card">
-          <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+          <div class="card-header pb-0 card-no-border d-flex justify-content-between align-items-center ">
             <h5>Data Fakultas</h5>
             <button class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreate"
               aria-controls="offcanvasRight">

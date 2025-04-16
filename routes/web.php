@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\FakultasController;
-use App\Http\Controllers\JurusanController;
-use App\Http\Controllers\KategoriController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{FakultasController, DokumenController, JurusanController, KategoriController, ProfileController};
 use Illuminate\Support\Facades\Route;
 
 // ===================== ROUTE PUBLIK =====================
@@ -42,7 +39,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // ===================== DOSEN ROUTES =====================
     Route::prefix('dosen')->middleware('role:dosen')->group(function () {
-        // Route::middleware('can:upload-dokumen')->get('documents/create', [DocumentController::class, 'create'])->name('documents.create');
+        Route::middleware('can:upload-dokumen')->get('/dokumen/create', [DokumenController::class, 'create'])->name('documents.create');
+        Route::middleware('can:upload-dokumen')->post('documents', [DokumenController::class, 'store'])->name('documents.store');
+        Route::middleware('can:edit-dokumen')->get('documents/{document}/edit', [DokumenController::class, 'edit'])->name('documents.edit');
+        Route::middleware('can:edit-dokumen')->put('documents/{document}', [DokumenController::class, 'update'])->name('documents.update');
+
         // Route::middleware('can:upload-dokumen')->post('documents', [DocumentController::class, 'store'])->name('documents.store');
 
         // Route::middleware('can:edit-dokumen')->get('documents/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
@@ -51,7 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::middleware('can:hapus-dokumen')->delete('documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 
         // // Dokumen list (boleh dilihat oleh dosen tanpa permission khusus)
-        // Route::get('documents', [DocumentController::class, 'index'])->name('documents.index');
+        Route::get('dokumen', [DokumenController::class, 'index'])->name('dokumen.index');
     });
 });
 

@@ -12,7 +12,7 @@ class DokumenController extends Controller
      */
     public function index()
     {
-        //
+        return view('dokumen.dokumen');
     }
 
     /**
@@ -20,7 +20,7 @@ class DokumenController extends Controller
      */
     public function create()
     {
-        //
+        return view('dokumen.tambahdokumen');
     }
 
     /**
