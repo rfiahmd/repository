@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 class JurusanController extends Controller
 {
+    // Show jurusan
     public function index()
     {
         $jurusans = Jurusan::with('fakultas')->get();
@@ -16,6 +17,7 @@ class JurusanController extends Controller
         return view('fakultas.jurusan.jurusan', compact('jurusans', 'fakultas'));
     }
 
+    // Create jurusan
     public function store(JurusanRequest $request)
     {
         Jurusan::create([
@@ -29,6 +31,7 @@ class JurusanController extends Controller
         return redirect()->route('jurusan.index')->with('success', 'Jurusan berhasil ditambahkan.');
     }
 
+    // Update jurusan
     public function update(JurusanRequest $request, $id)
     {
         $jurusan = Jurusan::findOrFail($id);
@@ -41,6 +44,7 @@ class JurusanController extends Controller
         }
     }
 
+    // Hapus jurusan
     public function destroy(Jurusan $jurusan)
     {
         $jurusan->delete();

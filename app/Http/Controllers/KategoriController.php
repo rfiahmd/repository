@@ -8,12 +8,14 @@ use Illuminate\Support\Str;
 
 class KategoriController extends Controller
 {
+    // Show kategori
     public function index()
     {
         $kategoris = Kategori::all();
         return view('kategori.kategori', compact('kategoris'));
     }
 
+    // Create kategori
     public function store(KategoriRequest $request)
     {
         $data = $request->validated();
@@ -23,6 +25,7 @@ class KategoriController extends Controller
         return redirect()->back()->with('success', 'Kategori berhasil ditambahkan.');
     }
 
+    // Update kategori
     public function update(KategoriRequest $request, Kategori $kategori)
     {
         $data = $request->validated();
@@ -31,6 +34,7 @@ class KategoriController extends Controller
         return redirect()->back()->with('success', 'Kategori berhasil diperbarui.');
     }
 
+    // Hapus kategori
     public function destroy(Kategori $kategori)
     {
         try {

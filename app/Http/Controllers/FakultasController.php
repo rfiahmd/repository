@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 class FakultasController extends Controller
 {
+
+    // Show fakultas
     public function index()
     {
         return view('fakultas.fakultas', [
@@ -15,6 +17,7 @@ class FakultasController extends Controller
         ]);
     }
 
+    // Create fakultas
     public function store(FakultasRequest $request)
     {
         Fakultas::create([
@@ -27,6 +30,7 @@ class FakultasController extends Controller
         return redirect()->back()->with('success', 'Fakultas berhasil ditambahkan.');
     }
 
+    // Update fakultas
     public function update(FakultasRequest $request, $id)
     {
         $fakultas = Fakultas::findOrFail($id);
@@ -39,6 +43,7 @@ class FakultasController extends Controller
         }
     }
 
+    //Hapus fakultas
     public function destroy(Fakultas $fakultas)
     {
         $fakultas->delete();

@@ -43,15 +43,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:upload-dokumen')->post('documents', [DokumenController::class, 'store'])->name('documents.store');
         Route::middleware('can:edit-dokumen')->get('documents/{document}/edit', [DokumenController::class, 'edit'])->name('documents.edit');
         Route::middleware('can:edit-dokumen')->put('documents/{document}', [DokumenController::class, 'update'])->name('documents.update');
-
-        // Route::middleware('can:upload-dokumen')->post('documents', [DocumentController::class, 'store'])->name('documents.store');
-
-        // Route::middleware('can:edit-dokumen')->get('documents/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
-        // Route::middleware('can:edit-dokumen')->put('documents/{document}', [DocumentController::class, 'update'])->name('documents.update');
-
-        // Route::middleware('can:hapus-dokumen')->delete('documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
-
-        // // Dokumen list (boleh dilihat oleh dosen tanpa permission khusus)
         Route::get('dokumen', [DokumenController::class, 'index'])->name('dokumen.index');
     });
 });

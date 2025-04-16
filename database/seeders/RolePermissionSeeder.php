@@ -44,7 +44,10 @@ class RolePermissionSeeder extends Seeder
             'kelola-prodi',
             'verifikasi-dokumen',
             'kelola-user',
-            'lihat-laporan'
+            'lihat-laporan',
+            'upload-dokumen',
+            'edit-dokumen',
+            'hapus-dokumen'
         ]);
 
         // Assign Permission ke Role Dosen
