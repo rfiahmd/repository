@@ -73,7 +73,7 @@
           </div>
 
           {{-- Tabel --}}
-          <div class="card-body" style="margin-top: -120px;">
+          <div class="card-body">
             <div class="table-responsive custom-scrollbar">
               <table class="display table-striped border" id="basic-1">
                 <thead>

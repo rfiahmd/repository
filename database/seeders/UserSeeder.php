@@ -35,13 +35,22 @@ class UserSeeder extends Seeder
         $dosen->assignRole('dosen');
 
         // Mahasiswa
-        $mahasiswa = User::updateOrCreate(
-            ['email' => 'mahasiswa@gmail.com'],
+        $mahasiswa1 = User::updateOrCreate(
+            ['email' => 'mahasiswa1@gmail.com'],
             [
                 'name' => 'Mahasiswa',
                 'password' => Hash::make('123'),
             ],
         );
-        $mahasiswa->assignRole('mahasiswa');
+        $mahasiswa1->assignRole('mahasiswa');
+
+        $mahasiswa2 = User::updateOrCreate(
+            ['email' => 'mahasiswa2@gmail.com'],
+            [
+                'name' => 'Mahasiswa',
+                'password' => Hash::make('123'),
+            ],
+        );
+        $mahasiswa2->assignRole('mahasiswa');
     }
 }

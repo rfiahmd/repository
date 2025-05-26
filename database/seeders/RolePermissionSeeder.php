@@ -14,50 +14,55 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Permission untuk Manajemen Kategori, fakultas, Prodi
-        Permission::create(['name' => 'kelola-kategori']); // Gabungkan CRUD kategori - Admin saja
-        Permission::create(['name' => 'kelola-fakultas']); // Gabungkan CRUD fakultas - Admin saja
-        Permission::create(['name' => 'kelola-prodi']); // Gabungkan CRUD prodi - Admin saja
+        // Permission untuk manajemen data master
+        Permission::create(['name' => 'kelola-kategori']);
+        Permission::create(['name' => 'kelola-fakultas']);
+        Permission::create(['name' => 'kelola-prodi']);
+        Permission::create(['name' => 'kelola-user']);
 
-        // Permission untuk Dokumen
+        // Permission untuk dokumen
         Permission::create(['name' => 'upload-dokumen']);
         Permission::create(['name' => 'edit-dokumen']);
         Permission::create(['name' => 'hapus-dokumen']);
-        Permission::create(['name' => 'verifikasi-dokumen']); // Khusus admin
+        Permission::create(['name' => 'verifikasi-dokumen']); // Admin memverifikasi dosen
+        Permission::create(['name' => 'verifikasi-dokumen-mahasiswa']); // Dosen memverifikasi mahasiswa
 
-        // Permission untuk User
-        Permission::create(['name' => 'kelola-user']); // Admin saja
-
-        // Permission Laporan
+        // Laporan
         Permission::create(['name' => 'lihat-laporan']);
 
-        // Buat Role
+        // Roles
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'dosen']);
         Role::create(['name' => 'mahasiswa']);
 
-        // Assign Permission ke Role Admin
+        // Admin permissions
         $admin = Role::findByName('admin');
         $admin->givePermissionTo([
             'kelola-kategori',
             'kelola-fakultas',
             'kelola-prodi',
-            'verifikasi-dokumen',
             'kelola-user',
+            'verifikasi-dokumen',
             'lihat-laporan',
-            'upload-dokumen',
             'edit-dokumen',
-            'hapus-dokumen'
+            'hapus-dokumen',
         ]);
 
-        // Assign Permission ke Role Dosen
+        // Dosen permissions
         $dosen = Role::findByName('dosen');
         $dosen->givePermissionTo([
             'upload-dokumen',
             'edit-dokumen',
-            'hapus-dokumen'
+            'hapus-dokumen',
+            'verifikasi-dokumen-mahasiswa'
         ]);
 
-        // Role Mahasiswa tidak perlu permission (hanya lihat/unduh dokumen)
+        // Mahasiswa permissions
+        $mahasiswa = Role::findByName('mahasiswa');
+        $mahasiswa->givePermissionTo([
+            'upload-dokumen',
+            'edit-dokumen',
+            'hapus-dokumen'
+        ]);
     }
 }

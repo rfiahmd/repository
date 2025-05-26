@@ -29,18 +29,24 @@
               <h6 class="lan-1">General</h6>
             </div>
           </li>
+          
+          @php
+            $role = Auth::user()->getRoleNames()->first(); // Ambil role pertama user
+          @endphp
+
           <li class="sidebar-list">
             <i class="fa-solid fa-thumbtack"></i>
-            <a class="sidebar-link sidebar-title link-nav" href="/dashboard">
+            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dashboard.role', ['role' => $role]) }}">
               <svg class="stroke-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-home"></use>
+                <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-home') }}"></use>
               </svg>
               <svg class="fill-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-home"></use>
+                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-home') }}"></use>
               </svg>
               <span>Dashboard</span>
             </a>
           </li>
+
           <li class="sidebar-main-title">
             <div>
               <h6>Master</h6>
@@ -101,7 +107,7 @@
           </li>
           <li class="sidebar-list">
             <i class="fa-solid fa-thumbtack"></i>
-            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dokumen.index')}}">
+            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dokumen.index') }}">
               <svg class="stroke-icon">
                 <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-file"></use>
               </svg>
