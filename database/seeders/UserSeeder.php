@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         $mahasiswa1 = User::updateOrCreate(
             ['email' => 'mahasiswa1@gmail.com'],
             [
-                'name' => 'Mahasiswa',
+                'name' => 'Mahasiswa Satu',
                 'password' => Hash::make('123'),
             ],
         );
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
         $mahasiswa2 = User::updateOrCreate(
             ['email' => 'mahasiswa2@gmail.com'],
             [
-                'name' => 'Mahasiswa',
+                'name' => 'Mahasiswa Dua',
                 'password' => Hash::make('123'),
             ],
         );

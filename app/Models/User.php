@@ -46,4 +46,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Dokumen yang diunggah oleh user (mahasiswa/dosen)
+    public function dokumens()
+    {
+        return $this->hasMany(Dokumen::class);
+    }
+
+    // Dokumen yang dibimbing oleh dosen (jika user adalah dosen)
+    public function dokumenBimbingan()
+    {
+        return $this->hasMany(Dokumen::class, 'dosen_id');
+    }
 }

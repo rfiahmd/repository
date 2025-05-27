@@ -12,7 +12,7 @@ class Jurusan extends Model
     protected $table = 'jurusans';
 
     protected $fillable = [
-        'token_jurusan', 'nama_jurusan', 'kode_jurusan', 'fakultas_id', 'deskripsi'
+        'token_jurusan', 'nama_jurusan', 'kode_jurusan', 'fakultas_id'
     ];
 
     public function fakultas()

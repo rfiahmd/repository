@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('token_fakultas', 12)->unique();
             $table->string('nama_fakultas', 100); // Contoh: "Fakultas Teknik"
             $table->string('kode_fakultas', 5)->unique(); // Contoh: "FT"
-            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
     }

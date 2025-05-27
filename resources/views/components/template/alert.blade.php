@@ -105,3 +105,30 @@
     });
   </script>
 @endif
+
+{{-- sweet alert form error --}}
+@if ($errors->any())
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      Swal.fire({
+        type: 'error',
+        icon: 'error',
+        title: 'Oops...',
+        html: `
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                `,
+        didOpen: () => {
+          // Menyembunyikan elemen swal2-select
+          const swalSelect = document.querySelector('.swal2-select');
+          if (swalSelect) {
+            swalSelect.style.display = 'none';
+          }
+        }
+      });
+    });
+  </script>
+@endif

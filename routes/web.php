@@ -29,6 +29,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->where('role', 'admin|dosen|mahasiswa')
         ->name('dashboard.role');
 
+    // dokumen
+    Route::get('/dokumen', [DokumenController::class, 'index'])->name('dokumen.index');
+
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -59,7 +62,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::middleware('can:hapus-dokumen')->delete('/documents/{document}', [DokumenController::class, 'destroy'])->name('documents.destroy');
 
-        Route::get('/dokumen', [DokumenController::class, 'index'])->name('dokumen.index');
 
         // Verifikasi dokumen mahasiswa bimbingan
         Route::middleware('can:verifikasi-dokumen-mahasiswa')->put('/documents/{id}/verify-mahasiswa', [DokumenController::class, 'verifyMahasiswa'])->name('documents.verify.mahasiswa');

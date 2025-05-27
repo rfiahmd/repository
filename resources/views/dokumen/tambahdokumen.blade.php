@@ -5,7 +5,7 @@
     <div class="page-title">
       <div class="row">
         <div class="col-sm-6">
-          <h3>Fakultas</h3>
+          <h3>Dukumen</h3>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb">
@@ -16,7 +16,8 @@
                 </svg>
               </a>
             </li>
-            <li class="breadcrumb-item active">Fakultas</li>
+            <li class="breadcrumb-item"><a class="text-dark" href="{{ route('dokumen.index') }}">Dokumen</a></li>
+            <li class="breadcrumb-item active">Tambah Dokumen</li>
           </ol>
         </div>
       </div>

@@ -29,12 +29,13 @@ return new class extends Migration
             $table->foreignId('fakultas_id')->constrained('fakultas'); // Fakultas
             $table->foreignId('jurusan_id')->constrained('jurusans'); // Jurusan
 
+            // Dosen pembimbing (hanya diisi jika user adalah mahasiswa)
+            $table->foreignId('dosen_id')->nullable()->constrained('users')->onDelete('set null');
+
             // Status
             $table->boolean('is_verified')->default(false); // Verifikasi admin
             $table->boolean('is_published')->default(false); // Status publikasi dokumen
             $table->integer('jumlah_diunduh')->default(0); // Jumlah unduhan dokumen
-            $table->integer('jumlah_disukai')->default(0); // Jumlah like dari pengguna
-            $table->integer('jumlah_dilihat')->default(0); // Jumlah view dari pengguna
 
             $table->timestamps();
         });

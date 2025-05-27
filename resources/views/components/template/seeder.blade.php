@@ -47,6 +47,7 @@
             </a>
           </li>
 
+          @if ($role === 'admin')
           <li class="sidebar-main-title">
             <div>
               <h6>Master</h6>
@@ -100,6 +101,8 @@
               <span>User</span>
             </a>
           </li>
+          @endif
+
           <li class="sidebar-main-title">
             <div>
               <h6>Operational</h6>
@@ -117,6 +120,8 @@
               <span>Dokumen</span>
             </a>
           </li>
+
+          @if ($role === 'admin' || $role === 'dosen')
           <li class="sidebar-list">
             <i class="fa-solid fa-thumbtack"></i>
             <a class="sidebar-link sidebar-title link-nav" href="#">
@@ -129,6 +134,7 @@
               <span>Verifikasi</span>
             </a>
           </li>
+          @endif
         </ul>
       </div>
       <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

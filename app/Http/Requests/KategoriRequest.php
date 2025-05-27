@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class KategoriRequest extends FormRequest
 {
@@ -21,8 +22,12 @@ class KategoriRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('kategori'); // Pastikan parameter sesuai nama resource
+
+        $id = is_object($id) ? $id->id : $id;
+
         return [
-            'nama_kategori' => 'required|string|max:50',
+            'nama_kategori' => ['required', 'string', 'max:50', Rule::unique('kategoris', 'nama_kategori')->ignore($id)],
             'deskripsi' => 'nullable|string',
         ];
     }
@@ -32,6 +37,7 @@ class KategoriRequest extends FormRequest
         return [
             'nama_kategori.required' => 'Nama kategori wajib diisi',
             'nama_kategori.max' => 'Nama kategori maksimal 50 karakter',
+            'nama_kategori.unique' => 'Nama kategori sudah ada.',
         ];
     }
 }

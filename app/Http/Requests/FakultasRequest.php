@@ -23,18 +23,12 @@ class FakultasRequest extends FormRequest
 
     public function rules(): array
     {
-        $id = $this->route('fakultas');
+        $id = $this->route('fakultas'); // Pastikan ini sesuai dengan resource name di route
         $id = is_object($id) ? $id->id : $id;
 
         return [
-            'nama_fakultas' => 'required|string|max:100',
-            'kode_fakultas' => [
-                'required',
-                'string',
-                'max:5',
-                Rule::unique('fakultas', 'kode_fakultas')->ignore($id),
-            ],
-            'deskripsi' => 'nullable|string',
+            'nama_fakultas' => ['required', 'string', 'max:100', Rule::unique('fakultas', 'nama_fakultas')->ignore($id)],
+            'kode_fakultas' => ['required', 'string', 'max:5', Rule::unique('fakultas', 'kode_fakultas')->ignore($id)],
         ];
     }
 
@@ -44,14 +38,12 @@ class FakultasRequest extends FormRequest
             'nama_fakultas.required' => 'Nama fakultas harus diisi.',
             'nama_fakultas.string' => 'Nama fakultas harus berupa teks.',
             'nama_fakultas.max' => 'Nama fakultas maksimal 100 karakter.',
+            'nama_fakultas.unique' => 'Nama fakultas sudah ada.',
 
             'kode_fakultas.required' => 'Kode fakultas harus diisi.',
             'kode_fakultas.string' => 'Kode fakultas harus berupa teks.',
             'kode_fakultas.max' => 'Kode fakultas maksimal 5 karakter.',
             'kode_fakultas.unique' => 'Kode fakultas sudah digunakan.',
-
-            'deskripsi.string' => 'Deskripsi harus berupa teks.',
         ];
     }
-
 }

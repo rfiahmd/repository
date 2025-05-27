@@ -23,18 +23,13 @@ class JurusanRequest extends FormRequest
     public function rules(): array
     {
         $id = $this->route('jurusan');
+
         $id = is_object($id) ? $id->id : $id;
 
         return [
-            'nama_jurusan' => 'required|string|max:100',
-            'kode_jurusan' => [
-                'required',
-                'string',
-                'max:10',
-                Rule::unique('jurusans', 'kode_jurusan')->ignore($id),
-            ],
+            'nama_jurusan' => ['required', 'string', 'max:100', Rule::unique('jurusans', 'nama_jurusan')->ignore($id)],
+            'kode_jurusan' => ['required', 'string', 'max:10', Rule::unique('jurusans', 'kode_jurusan')->ignore($id)],
             'fakultas_id' => 'required|exists:fakultas,id',
-            'deskripsi' => 'nullable|string',
         ];
     }
 
@@ -44,6 +39,7 @@ class JurusanRequest extends FormRequest
             'nama_jurusan.required' => 'Nama jurusan harus diisi.',
             'nama_jurusan.string' => 'Nama jurusan harus berupa teks.',
             'nama_jurusan.max' => 'Nama jurusan maksimal 100 karakter.',
+            'nama_jurusan.unique' => 'Nama jurusan sudah ada.',
 
             'kode_jurusan.required' => 'Kode jurusan harus diisi.',
             'kode_jurusan.string' => 'Kode jurusan harus berupa teks.',

@@ -24,7 +24,6 @@ class FakultasController extends Controller
             'token_fakultas' => Str::random(12),
             'nama_fakultas' => $request->nama_fakultas,
             'kode_fakultas' => $request->kode_fakultas,
-            'deskripsi' => $request->deskripsi,
         ]);
 
         return redirect()->back()->with('success', 'Fakultas berhasil ditambahkan.');
@@ -44,10 +43,10 @@ class FakultasController extends Controller
     }
 
     //Hapus fakultas
-    public function destroy(Fakultas $fakultas)
+    public function destroy(Fakultas $fakulta)
     {
-        $fakultas->delete();
-
+        // dd($fakultas);
+        $fakulta->delete();
         return redirect()->back()->with('delete_success', 'Fakultas berhasil dihapus.');
     }
 }

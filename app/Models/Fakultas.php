@@ -10,13 +10,18 @@ class Fakultas extends Model
     use HasFactory;
 
     protected $table = 'fakultas';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'token_fakultas',
         'nama_fakultas',
         'kode_fakultas',
-        'deskripsi',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'token_fakultas';
+    }
 
     public function jurusans()
     {

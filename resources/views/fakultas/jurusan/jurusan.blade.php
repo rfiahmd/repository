@@ -35,52 +35,6 @@
             </button>
           </div>
 
-          {{-- Offcanvass Tambah --}}
-          <div class="card-body common-flex common-offcanvas">
-            <div class="offcanvas offcanvas-end" id="offcanvasCreate" tabindex="-1" aria-labelledby="offcanvasRightLabel">
-              <div class="offcanvas-header pb-0">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Tambah Jurusan</h5>
-                <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div>
-              <div class="offcanvas-body custom-input custom-scrollbar">
-                <form action="{{ route('jurusan.store') }}" method="POST" class="needs-validation" novalidate>
-                  @csrf
-                  <div class="modal-body">
-                    <div class="mb-3">
-                      <label for="nama_jurusan" class="form-label">Nama Jurusan</label>
-                      <input type="text" class="form-control" name="nama_jurusan" required>
-                      <div class="invalid-feedback">Nama Jurusan harus diisi</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="kode_jurusan" class="form-label">Kode Jurusan</label>
-                      <input type="text" class="form-control" name="kode_jurusan" required>
-                      <div class="invalid-feedback">Kode Jurusan harus diisi</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="fakultas_id" class="form-label">Fakultas</label>
-                      <select class="form-select" name="fakultas_id" required>
-                        <option value="">-- Pilih Fakultas --</option>
-                        @foreach ($fakultas as $item)
-                          <option value="{{ $item->id }}">{{ $item->nama_fakultas }}</option>
-                        @endforeach
-                      </select>
-                      <div class="invalid-feedback">Fakultas harus dipilih</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="deskripsi" class="form-label">Deskripsi</label>
-                      <textarea class="form-control" name="deskripsi" required></textarea>
-                      <div class="invalid-feedback">Deskripsi harus diisi</div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
           {{-- Tabel --}}
           <div class="card-body">
             <div class="table-responsive custom-scrollbar">
@@ -91,7 +45,6 @@
                     <th>Nama Jurusan</th>
                     <th>Kode Jurusan</th>
                     <th>Fakultas</th>
-                    <th>Deskripsi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -102,19 +55,20 @@
                       <td>{{ $jurusan->nama_jurusan }}</td>
                       <td>{{ $jurusan->kode_jurusan }}</td>
                       <td>
-                        {{ $jurusan->fakultas->nama_fakultas ?? '-' }} 
+                        {{ $jurusan->fakultas->nama_fakultas ?? '-' }}
                         ({{ $jurusan->fakultas->kode_fakultas ?? '-' }})
                       </td>
-                      <td>{{ $jurusan->deskripsi ?? '-' }}</td>
                       <td>
                         <ul class="action">
                           <li class="edit">
-                            <a type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEdit{{ $jurusan->id }}">
+                            <a type="button" data-bs-toggle="offcanvas"
+                              data-bs-target="#offcanvasEdit{{ $jurusan->id }}">
                               <i class="fa-regular fa-pen-to-square"></i>
                             </a>
                           </li>
                           <li class="delete">
-                            <form action="{{ route('jurusan.destroy', $jurusan->id) }}" method="POST" style="display: inline;">
+                            <form action="{{ route('jurusan.destroy', $jurusan->id) }}" method="POST"
+                              style="display: inline;">
                               @csrf
                               @method('DELETE')
                               <a type="button" onclick="confirmDelete(this)">
@@ -125,63 +79,104 @@
                         </ul>
                       </td>
                     </tr>
-
-                    {{-- Offcanvas Edit --}}
-                    <div class="card-body common-flex common-offcanvas">
-                      <div class="offcanvas offcanvas-end" id="offcanvasEdit{{ $jurusan->id }}" tabindex="-1" aria-labelledby="offcanvasRightLabel">
-                        <div class="offcanvas-header pb-0">
-                          <h5 class="offcanvas-title" id="offcanvasRightLabel">Edit Jurusan</h5>
-                          <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body custom-input custom-scrollbar">
-                          <form action="{{ route('jurusan.update', $jurusan->id) }}" method="POST" class="needs-validation" novalidate>
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-body">
-                              <div class="mb-3">
-                                <label for="nama_jurusan" class="form-label">Nama Jurusan</label>
-                                <input type="text" class="form-control" name="nama_jurusan" value="{{ old('nama_jurusan', $jurusan->nama_jurusan) }}" required>
-                                <div class="invalid-feedback">Nama Jurusan harus diisi</div>
-                              </div>
-                              <div class="mb-3">
-                                <label for="kode_jurusan" class="form-label">Kode Jurusan</label>
-                                <input type="text" class="form-control" name="kode_jurusan" value="{{ old('kode_jurusan', $jurusan->kode_jurusan) }}" required>
-                                <div class="invalid-feedback">Kode Jurusan harus diisi</div>
-                              </div>
-                              <div class="mb-3">
-                                <label for="fakultas_id" class="form-label">Fakultas</label>
-                                <select class="form-select" name="fakultas_id" required>
-                                  <option value="">-- Pilih Fakultas --</option>
-                                  @foreach ($fakultas as $item)
-                                    <option value="{{ $item->id }}" {{ $item->id == $jurusan->fakultas_id ? 'selected' : '' }}>
-                                      {{ $item->nama_fakultas }}
-                                    </option>
-                                  @endforeach
-                                </select>
-                                <div class="invalid-feedback">Fakultas harus dipilih</div>
-                              </div>
-                              <div class="mb-3">
-                                <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" required>{{ old('deskripsi', $jurusan->deskripsi) }}</textarea>
-                                <div class="invalid-feedback">Deskripsi harus diisi</div>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas">Tutup</button>
-                              <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
                   @endforeach
                 </tbody>
               </table>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
+
+  {{-- Offcanvass Tambah --}}
+  <div class="card-body common-flex common-offcanvas">
+    <div class="offcanvas offcanvas-end" id="offcanvasCreate" tabindex="-1" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header pb-0">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Tambah Jurusan</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body custom-input custom-scrollbar">
+        <form action="{{ route('jurusan.store') }}" method="POST" class="needs-validation" novalidate>
+          @csrf
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nama_jurusan" class="form-label">Nama Jurusan</label>
+              <input type="text" class="form-control" name="nama_jurusan" required>
+              <div class="invalid-feedback">Nama Jurusan harus diisi</div>
+            </div>
+            <div class="mb-3">
+              <label for="kode_jurusan" class="form-label">Kode Jurusan</label>
+              <input type="text" class="form-control" name="kode_jurusan" required>
+              <div class="invalid-feedback">Kode Jurusan harus diisi</div>
+            </div>
+            <div class="mb-3">
+              <label for="fakultas_id" class="form-label">Fakultas</label>
+              <select class="form-select" name="fakultas_id" required>
+                <option value="">-- Pilih Fakultas --</option>
+                @foreach ($fakultas as $item)
+                  <option value="{{ $item->id }}">{{ $item->nama_fakultas }}</option>
+                @endforeach
+              </select>
+              <div class="invalid-feedback">Fakultas harus dipilih</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas">Tutup</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {{-- Offcanvas Edit --}}
+  @foreach ($jurusans as $jurusan)
+    <div class="card-body common-flex common-offcanvas">
+      <div class="offcanvas offcanvas-end" id="offcanvasEdit{{ $jurusan->id }}" tabindex="-1"
+        aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header pb-0">
+          <h5 class="offcanvas-title" id="offcanvasRightLabel">Edit Jurusan</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body custom-input custom-scrollbar">
+          <form action="{{ route('jurusan.update', $jurusan->id) }}" method="POST" class="needs-validation"
+            novalidate>
+            @csrf
+            @method('PUT')
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="nama_jurusan" class="form-label">Nama Jurusan</label>
+                <input type="text" class="form-control" name="nama_jurusan"
+                  value="{{ old('nama_jurusan', $jurusan->nama_jurusan) }}" required>
+                <div class="invalid-feedback">Nama Jurusan harus diisi</div>
+              </div>
+              <div class="mb-3">
+                <label for="kode_jurusan" class="form-label">Kode Jurusan</label>
+                <input type="text" class="form-control" name="kode_jurusan"
+                  value="{{ old('kode_jurusan', $jurusan->kode_jurusan) }}" required>
+                <div class="invalid-feedback">Kode Jurusan harus diisi</div>
+              </div>
+              <div class="mb-3">
+                <label for="fakultas_id" class="form-label">Fakultas</label>
+                <select class="form-select" name="fakultas_id" required>
+                  <option value="">-- Pilih Fakultas --</option>
+                  @foreach ($fakultas as $item)
+                    <option value="{{ $item->id }}" {{ $item->id == $jurusan->fakultas_id ? 'selected' : '' }}>
+                      {{ $item->nama_fakultas }}
+                    </option>
+                  @endforeach
+                </select>
+                <div class="invalid-feedback">Fakultas harus dipilih</div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas">Tutup</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  @endforeach
 @endsection

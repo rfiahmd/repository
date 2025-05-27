@@ -25,7 +25,6 @@ class JurusanController extends Controller
             'nama_jurusan' => $request->nama_jurusan,
             'kode_jurusan' => $request->kode_jurusan,
             'fakultas_id' => $request->fakultas_id,
-            'deskripsi' => $request->deskripsi,
         ]);
 
         return redirect()->route('jurusan.index')->with('success', 'Jurusan berhasil ditambahkan.');

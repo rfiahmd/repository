@@ -34,44 +34,6 @@
               + Tambah Fakultas
             </button>
           </div>
-
-          {{-- Offcanvass Tambah --}}
-          <div class="card-body common-flex common-offcanvas">
-            <div class="offcanvas offcanvas-end" id="offcanvasCreate" tabindex="-1"
-              aria-labelledby="offcanvasRightLabel">
-              <div class="offcanvas-header pb-0">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas End</h5>
-                <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div>
-              <div class="offcanvas-body custom-input custom-scrollbar">
-                <form action="{{ route('fakultas.store') }}" method="POST" class="needs-validation" novalidate>
-                  @csrf
-                  <div class="modal-body">
-                    <div class="mb-3">
-                      <label for="nama_fakultas" class="form-label">Nama Fakultas</label>
-                      <input type="text" class="form-control" name="nama_fakultas" required>
-                      <div class="invalid-feedback">Nama Fakultas harus diisi</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="kode_fakultas" class="form-label">Kode Fakultas</label>
-                      <input type="text" class="form-control" name="kode_fakultas" required>
-                      <div class="invalid-feedback">Kode Fakultas harus diisi</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="deskripsi" class="form-label">Deskripsi</label>
-                      <textarea class="form-control" name="deskripsi" required></textarea>
-                      <div class="invalid-feedback">Deskripsi harus diisi</div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
           {{-- Tabel --}}
           <div class="card-body">
             <div class="table-responsive custom-scrollbar">
@@ -81,7 +43,6 @@
                     <th>No</th>
                     <th>Nama Fakultas</th>
                     <th>Kode Fakultas</th>
-                    <th>Deskripsi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -91,7 +52,6 @@
                       <td>{{ $index + 1 }}.</td>
                       <td>{{ $f->nama_fakultas }}</td>
                       <td>{{ $f->kode_fakultas }}</td>
-                      <td>{{ $f->deskripsi ?? '-' }}</td>
                       <td>
                         <ul class="action">
                           <li class="edit">
@@ -102,64 +62,17 @@
                             </a>
                           </li>
                           <li class="delete">
-                            <form action="{{ route('fakultas.destroy', $f->id) }}" method="POST"
-                              style="display: inline;">
+                            <form action="{{ route('fakultas.destroy', $f->token_fakultas) }}" method="POST" style="display: inline;">
                               @csrf
                               @method('DELETE')
-                              <a type="button" onclick="confirmDelete(this)">
+                              <button type="button" onclick="confirmDelete(this)" class="btn p-0 border-0 bg-transparent">
                                 <i class="fa-solid fa-trash-can"></i>
-                              </a>
+                              </button>
                             </form>
-                          </li>
+                          </li>                          
                         </ul>
                       </td>
                     </tr>
-
-                    {{-- Offcanvass Edit --}}
-                    <div class="card-body common-flex common-offcanvas">
-                      <div class="offcanvas offcanvas-end" id="offcanvasEdit{{ $f->id }}" tabindex="-1"
-                        aria-labelledby="offcanvasRightLabel">
-                        <div class="offcanvas-header pb-0">
-                          <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas End</h5>
-                          <button class="btn-close" type="button" data-bs-dismiss="offcanvas"
-                            aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body custom-input custom-scrollbar">
-                          <form action="{{ route('fakultas.update', $f->id) }}" method="POST" class="needs-validation"
-                            novalidate>
-                            @csrf
-                            @method('PUT') <!-- Menggunakan method PUT untuk update -->
-
-                            <div class="modal-body">
-                              <div class="mb-3">
-                                <label for="nama_fakultas" class="form-label">Nama Fakultas</label>
-                                <input type="text" class="form-control" name="nama_fakultas"
-                                  value="{{ old('nama_fakultas', $f->nama_fakultas) }}" required>
-                                <div class="invalid-feedback">Nama Fakultas harus diisi</div>
-                              </div>
-
-                              <div class="mb-3">
-                                <label for="kode_fakultas" class="form-label">Kode Fakultas</label>
-                                <input type="text" class="form-control" name="kode_fakultas"
-                                  value="{{ old('kode_fakultas', $f->kode_fakultas) }}" required>
-                                <div class="invalid-feedback">Kode Fakultas harus diisi</div>
-                              </div>
-
-                              <div class="mb-3">
-                                <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" required>{{ old('deskripsi', $f->deskripsi) }}</textarea>
-                                <div class="invalid-feedback">Deskripsi harus diisi</div>
-                              </div>
-                            </div>
-
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
                   @endforeach
                 </tbody>
               </table>
@@ -169,4 +82,72 @@
       </div>
     </div>
   </div>
+  {{-- Offcanvas Add Section --}}
+  <div class="card-body common-flex common-offcanvas">
+    <div class="offcanvas offcanvas-end" id="offcanvasCreate" tabindex="-1" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header pb-0">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas End</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body custom-input custom-scrollbar">
+        <form action="{{ route('fakultas.store') }}" method="POST" class="needs-validation" novalidate>
+          @csrf
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nama_fakultas" class="form-label">Nama Fakultas</label>
+              <input type="text" class="form-control" name="nama_fakultas" required>
+              <div class="invalid-feedback">Nama Fakultas harus diisi</div>
+            </div>
+            <div class="mb-3">
+              <label for="kode_fakultas" class="form-label">Kode Fakultas</label>
+              <input type="text" class="form-control" name="kode_fakultas" required>
+              <div class="invalid-feedback">Kode Fakultas harus diisi</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {{-- Offcanvas Edit Section --}}
+  @foreach ($fakultas as $f)
+    <div class="card-body common-flex common-offcanvas">
+      <div class="offcanvas offcanvas-end" id="offcanvasEdit{{ $f->id }}" tabindex="-1"
+        aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header pb-0">
+          <h5 class="offcanvas-title" id="offcanvasRightLabel">Edit Fakultas</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body custom-input custom-scrollbar">
+          <form action="{{ route('fakultas.update', $f->id) }}" method="POST" class="needs-validation" novalidate>
+            @csrf
+            @method('PUT')
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="nama_fakultas" class="form-label">Nama Fakultas</label>
+                <input type="text" class="form-control" name="nama_fakultas"
+                  value="{{ old('nama_fakultas', $f->nama_fakultas) }}" required>
+                <div class="invalid-feedback">Nama Fakultas harus diisi</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="kode_fakultas" class="form-label">Kode Fakultas</label>
+                <input type="text" class="form-control" name="kode_fakultas"
+                  value="{{ old('kode_fakultas', $f->kode_fakultas) }}" required>
+                <div class="invalid-feedback">Kode Fakultas harus diisi</div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas">Close</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  @endforeach
 @endsection

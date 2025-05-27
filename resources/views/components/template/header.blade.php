@@ -58,12 +58,31 @@
           </div>
         </li>
         <li class="profile-nav onhover-dropdown pe-0 py-0">
-          <div class="d-flex profile-media"><img class="b-r-10"
-              src="{{ asset('') }}assets/images/dashboard/profile.png" alt="">
-            <div class="flex-grow-1"><span>{{ Auth::user()->name }}</span>
-              <p class="mb-0">{{ Auth::user()->getRoleNames()->first() }} <i
-                  class="middle fa-solid fa-angle-down"></i></p>
+          <div class="d-flex profile-media">
+            <?php
+            // Warna berdasarkan nama
+            function stringToColor($string)
+            {
+                $code = crc32($string);
+                $r = ($code & 0xff0000) >> 16;
+                $g = ($code & 0x00ff00) >> 8;
+                $b = $code & 0x0000ff;
+                return "rgb($r, $g, $b)";
+            }
+            
+            $bgColor = stringToColor(Auth::user()->name);
+            ?>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-center align-items-center"
+                style="width: 36px; height: 36px; background-color: {{ $bgColor }}; color: white; font-weight: bold; font-size: 20px; border-radius: 50%;">
+                @avatarinitial(Auth::user()->name)
+              </div>
+              <div class="flex-grow-1 ms-2">
+                <span>@namalengkap(Auth::user()->name)</span>
+                <p class="mb-0">@formatnama(Auth::user()->getRoleNames()->first()) <i class="middle fa-solid fa-angle-down"></i></p>
+              </div>
             </div>
+
           </div>
           <ul class="profile-dropdown onhover-show-div">
             <li><a href="sign-up.html"><i data-feather="user"></i><span>Account </span></a></li>

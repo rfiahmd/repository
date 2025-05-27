@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('token_jurusan', 12)->unique();
             $table->string('nama_jurusan', 100); // Contoh: "Teknik Informatika"
             $table->string('kode_jurusan', 10)->unique(); // Contoh: "TI"
-            $table->text('deskripsi')->nullable();
             $table->foreignId('fakultas_id')->constrained('fakultas')->onDelete('cascade');
             $table->timestamps();
         });
