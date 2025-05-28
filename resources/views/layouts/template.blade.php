@@ -13,6 +13,12 @@
     content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
   <meta name="author" content="pixelstrap">
 
+  <style>
+    .ck-editor__editable_inline {
+      height: 300px;
+    }
+  </style>
+
   <x-template.link></x-template.link>
 
 </head>
@@ -30,14 +36,14 @@
     </svg>
   </div>
   <!-- loader ends-->
-  
+
   <!-- tap on top starts-->
   <div class="tap-top"><i data-feather="chevrons-up"></i></div>
   <!-- tap on tap ends-->
 
   <!-- page-wrapper Start-->
   <div class="page-wrapper compact-wrapper" id="pageWrapper">
-    
+
     <x-template.header></x-template.header>
 
     <!-- Page Body Start-->
@@ -46,11 +52,11 @@
       <x-template.seeder></x-template.seeder>
 
       <div class="page-body">
-        
+
         @yield('content')
 
       </div>
-      
+
       <x-template.footer></x-template.footer>
 
     </div>
@@ -61,4 +67,5 @@
 
 </body>
 <!-- Mirrored from admin.pixelstrap.com/cuba/template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Apr 2025 08:49:21 GMT -->
+
 </html>

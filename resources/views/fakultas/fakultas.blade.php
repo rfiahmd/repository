@@ -94,12 +94,12 @@
           @csrf
           <div class="modal-body">
             <div class="mb-3">
-              <label for="nama_fakultas" class="form-label">Nama Fakultas</label>
+              <label for="nama_fakultas" class="form-label">Nama Fakultas<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="nama_fakultas" required>
               <div class="invalid-feedback">Nama Fakultas harus diisi</div>
             </div>
             <div class="mb-3">
-              <label for="kode_fakultas" class="form-label">Kode Fakultas</label>
+              <label for="kode_fakultas" class="form-label">Kode Fakultas<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="kode_fakultas" required>
               <div class="invalid-feedback">Kode Fakultas harus diisi</div>
             </div>
@@ -127,14 +127,14 @@
             @method('PUT')
             <div class="modal-body">
               <div class="mb-3">
-                <label for="nama_fakultas" class="form-label">Nama Fakultas</label>
+                <label for="nama_fakultas" class="form-label">Nama Fakultas<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="nama_fakultas"
                   value="{{ old('nama_fakultas', $f->nama_fakultas) }}" required>
                 <div class="invalid-feedback">Nama Fakultas harus diisi</div>
               </div>
 
               <div class="mb-3">
-                <label for="kode_fakultas" class="form-label">Kode Fakultas</label>
+                <label for="kode_fakultas" class="form-label">Kode Fakultas<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="kode_fakultas"
                   value="{{ old('kode_fakultas', $f->kode_fakultas) }}" required>
                 <div class="invalid-feedback">Kode Fakultas harus diisi</div>

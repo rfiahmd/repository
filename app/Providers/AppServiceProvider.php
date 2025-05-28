@@ -44,5 +44,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('formatnama', function ($expression) {
             return "<?php echo ucwords(strtolower($expression)); ?>";
         });
+
+        Blade::directive('judul', function ($expression) {
+            return "<?php echo Str::limit($expression, 50, '...'); ?>";
+        });
     }
 }

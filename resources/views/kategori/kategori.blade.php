@@ -43,13 +43,13 @@
                   @csrf
                   <div class="modal-body">
                     <div class="mb-3">
-                      <label for="nama_kategori" class="form-label">Nama Kategori</label>
+                      <label for="nama_kategori" class="form-label">Nama Kategori<span class="text-danger">*</span></label>
                       <input type="text" class="form-control" name="nama_kategori" required>
                       <div class="invalid-feedback">Nama kategori harus diisi</div>
                     </div>
                     <div class="mb-3">
                       <label for="deskripsi" class="form-label">Deskripsi</label>
-                      <textarea class="form-control" name="deskripsi" required></textarea>
+                      <textarea class="form-control" style="resize: none; height:120px" name="deskripsi" required></textarea>
                       <div class="invalid-feedback">Deskripsi harus diisi</div>
                     </div>
                   </div>
@@ -117,14 +117,14 @@
                             @method('PUT') <!-- Menggunakan method PUT untuk update -->
                             <div class="modal-body">
                               <div class="mb-3">
-                                <label for="nama_kategori" class="form-label">Nama Kategori</label>
+                                <label for="nama_kategori" class="form-label">Nama Kategori<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="nama_kategori"
                                   value="{{ $kategori->nama_kategori }}" required>
                                 <div class="invalid-feedback">Nama kategori harus diisi</div>
                               </div>
                               <div class="mb-3">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" required>{{ $kategori->deskripsi }}</textarea>
+                                <textarea class="form-control" style="resize: none; height:120px" name="deskripsi" required>{{ $kategori->deskripsi }}</textarea>
                                 <div class="invalid-feedback">Deskripsi harus diisi</div>
                               </div>
                             </div>

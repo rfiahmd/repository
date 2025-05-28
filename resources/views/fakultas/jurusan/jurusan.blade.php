@@ -101,19 +101,19 @@
           @csrf
           <div class="modal-body">
             <div class="mb-3">
-              <label for="nama_jurusan" class="form-label">Nama Jurusan</label>
+              <label for="nama_jurusan" class="form-label">Nama Jurusan<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="nama_jurusan" required>
               <div class="invalid-feedback">Nama Jurusan harus diisi</div>
             </div>
             <div class="mb-3">
-              <label for="kode_jurusan" class="form-label">Kode Jurusan</label>
+              <label for="kode_jurusan" class="form-label">Kode Jurusan<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="kode_jurusan" required>
               <div class="invalid-feedback">Kode Jurusan harus diisi</div>
             </div>
             <div class="mb-3">
-              <label for="fakultas_id" class="form-label">Fakultas</label>
+              <label for="fakultas_id" class="form-label">Fakultas<span class="text-danger">*</span></label>
               <select class="form-select" name="fakultas_id" required>
-                <option value="">-- Pilih Fakultas --</option>
+                <option selected disabled>Pilih...</option>
                 @foreach ($fakultas as $item)
                   <option value="{{ $item->id }}">{{ $item->nama_fakultas }}</option>
                 @endforeach
@@ -146,21 +146,21 @@
             @method('PUT')
             <div class="modal-body">
               <div class="mb-3">
-                <label for="nama_jurusan" class="form-label">Nama Jurusan</label>
+                <label for="nama_jurusan" class="form-label">Nama Jurusan<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="nama_jurusan"
                   value="{{ old('nama_jurusan', $jurusan->nama_jurusan) }}" required>
                 <div class="invalid-feedback">Nama Jurusan harus diisi</div>
               </div>
               <div class="mb-3">
-                <label for="kode_jurusan" class="form-label">Kode Jurusan</label>
+                <label for="kode_jurusan" class="form-label">Kode Jurusan<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="kode_jurusan"
                   value="{{ old('kode_jurusan', $jurusan->kode_jurusan) }}" required>
                 <div class="invalid-feedback">Kode Jurusan harus diisi</div>
               </div>
               <div class="mb-3">
-                <label for="fakultas_id" class="form-label">Fakultas</label>
+                <label for="fakultas_id" class="form-label">Fakultas<span class="text-danger">*</span></label>
                 <select class="form-select" name="fakultas_id" required>
-                  <option value="">-- Pilih Fakultas --</option>
+                  <option selected disabled>Pilih...</option>
                   @foreach ($fakultas as $item)
                     <option value="{{ $item->id }}" {{ $item->id == $jurusan->fakultas_id ? 'selected' : '' }}>
                       {{ $item->nama_fakultas }}

@@ -30,7 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('dashboard.role');
 
     // dokumen
-    Route::get('/dokumen', [DokumenController::class, 'index'])->name('dokumen.index');
+    Route::get('/dokumens', [DokumenController::class, 'index'])->name('dokumen.index');
+    Route::get('/get-jurusan/{fakultas_id}', [DokumenController::class, 'getJurusan']);
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

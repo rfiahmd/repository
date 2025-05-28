@@ -6,6 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dokumen extends Model
 {
+    protected $table = 'dokumens';
+    protected $fillable = [
+        'token_dokumen',
+        'judul',
+        'abstrak',
+        'kata_kunci',
+        'tahun_publikasi',
+        'file_path',
+        'thumbnail_path',
+        'user_id',
+        'kategori_id',
+        'fakultas_id',
+        'jurusan_id',
+        'dosen_id',
+        'is_verified',
+        'is_published',
+        'jumlah_diunduh',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

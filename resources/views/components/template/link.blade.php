@@ -37,5 +37,9 @@
 <link href="{{ asset('') }}assets/css/color-6.css" rel="stylesheet">
 <link href="{{ asset('') }}assets/css/responsive.css" rel="stylesheet">
 <link href="{{ asset('') }}assets/css/style.css" rel="stylesheet">
+<link href="{{ asset('') }}uploadImg/style.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('') }}assets/css/vendors/dataTables.bootstrap5.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('') }}assets/css/vendors/jquery.dataTables.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<!-- Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
