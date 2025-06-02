@@ -82,6 +82,7 @@
       </div>
     </div>
   </div>
+  
   {{-- Offcanvas Add Section --}}
   <div class="card-body common-flex common-offcanvas">
     <div class="offcanvas offcanvas-end" id="offcanvasCreate" tabindex="-1" aria-labelledby="offcanvasRightLabel">

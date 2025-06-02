@@ -58,8 +58,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:upload-dokumen')->get('/dokumen/create', [DokumenController::class, 'create'])->name('documents.create');
         Route::middleware('can:upload-dokumen')->post('/documents', [DokumenController::class, 'store'])->name('documents.store');
 
-        Route::middleware('can:edit-dokumen')->get('/documents/{document}/edit', [DokumenController::class, 'edit'])->name('documents.edit');
-        Route::middleware('can:edit-dokumen')->put('/documents/{document}', [DokumenController::class, 'update'])->name('documents.update');
+        Route::middleware('can:edit-dokumen')->get('/documents/{id}/edit', [DokumenController::class, 'edit'])->name('documents.edit');
+        Route::middleware('can:edit-dokumen')->put('/documents/{dokumen}', [DokumenController::class, 'update'])->name('documents.update');
 
         Route::middleware('can:hapus-dokumen')->delete('/documents/{document}', [DokumenController::class, 'destroy'])->name('documents.destroy');
 
@@ -74,8 +74,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:upload-dokumen')->get('/dokumen/create', [DokumenController::class, 'create'])->name('mahasiswa.documents.create');
         Route::middleware('can:upload-dokumen')->post('/documents', [DokumenController::class, 'store'])->name('mahasiswa.documents.store');
 
-        Route::middleware('can:edit-dokumen')->get('/documents/{document}/edit', [DokumenController::class, 'edit'])->name('mahasiswa.documents.edit');
-        Route::middleware('can:edit-dokumen')->put('/documents/{document}', [DokumenController::class, 'update'])->name('mahasiswa.documents.update');
+        Route::middleware('can:edit-dokumen')->get('/documents/{id}/edit', [DokumenController::class, 'edit'])->name('mahasiswa.documents.edit');
+        Route::middleware('can:edit-dokumen')->put('/documents/{dokumen}', [DokumenController::class, 'update'])->name('mahasiswa.documents.update');
 
         Route::middleware('can:hapus-dokumen')->delete('/documents/{document}', [DokumenController::class, 'destroy'])->name('mahasiswa.documents.destroy');
 

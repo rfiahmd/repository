@@ -33,6 +33,7 @@
             @php
               $role = Auth::user()->getRoleNames()->first(); // ambil role pertama
               $createRoute = $role === 'mahasiswa' ? route('mahasiswa.documents.create') : route('documents.create'); // dosen (dan fallback lainnya)
+              $editRoute = $role === 'mahasiswa' ? 'mahasiswa.documents.edit' : 'documents.edit';
               $isMahasiswa = auth()->user()->hasRole('mahasiswa');
               $routeName = $isMahasiswa ? 'mahasiswa.documents.destroy' : 'documents.destroy';
             @endphp
@@ -84,12 +85,17 @@
                       </td>
                       <td>
                         <ul class="action">
-                          @if (!$dokumen->is_verified)
-                          <li class="edit">
-                            <a href="" class="text-warning">
-                              <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
+                          <li class="info" style="margin-right: 7px">
+                            <button type="button" class="btn p-0 border-0 bg-transparent text-secondary">
+                              <i class="fa-solid fa-circle-info"></i>
+                            </button>
                           </li>
+                          @if (!$dokumen->is_verified)
+                            <li class="edit">
+                              <a href="{{ route($editRoute, $dokumen->id) }}" class="text-warning">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                              </a>
+                            </li>
                             <li class="delete">
                               <form action="{{ route($routeName, $dokumen->id) }}" method="POST"
                                 style="display: inline;">

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokumen;
+use App\Models\Fakultas;
+use App\Models\Jurusan;
+use App\Models\Kategori;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +21,50 @@ class DashboardController extends Controller
             abort(403, 'Anda tidak memiliki akses ke dashboard ini.');
         }
 
-        // Kirim role ke view utama
-        return view('dashboard.dashboard', ['role' => $role]);
+        // Jika role sesuai, tampilkan dashboard untuk role tersebut
+        $data = [];
+
+        // Data berdasarkan role
+        switch ($role) {
+            case 'admin':
+                $data = [
+                    'totalDokumen' => Dokumen::where('is_verified', 1)->count(),
+                    'totalFakultas' => Fakultas::count(),
+                    'totalJurusan' => Jurusan::count(),
+                    'totalDosen' => User::role('dosen')->count(),
+                    'totalMahasiswa' => User::role('mahasiswa')->count(),
+                    'totalKategori' => Kategori::count(),
+                ];
+                break;
+
+            case 'dosen':
+                $data = [
+                    'totalDokumenDiterima' => Dokumen::where('dosen_id', $user->id)->where('is_verified', 1)->count(),
+                    'totalDokumenDitolak' => Dokumen::where('dosen_id', $user->id)->where('is_verified', 0)->count(),
+                    'totalDokumenDipublikasi' => Dokumen::where('dosen_id', $user->id)->where('is_verified', 1)->where('is_published', 1)->count(),
+                    'totalMahasiswaBimbingan' => Dokumen::where('dosen_id', $user->id)
+                        ->whereHas('user', function ($query) {
+                            $query->role('mahasiswa');
+                        })
+                        ->distinct('user_id') // untuk menghitung mahasiswa unik
+                        ->count('user_id'),
+                ];
+                break;
+
+            case 'mahasiswa':
+                $data = [
+                    'totalDokumenDiterima' => Dokumen::where('user_id', $user->id)->where('is_verified', 1)->count(),
+                    'totalDokumenDitolak' => Dokumen::where('user_id', $user->id)->where('is_verified', 0)->count(),
+                    'totalDokumenDipublikasi' => Dokumen::where('user_id', $user->id)->where('is_verified', 1)->where('is_published', 1)->count(),
+                    'totalDokumen' => Dokumen::where('user_id', $user->id)->count(),
+                ];
+                break;
+
+            default:
+                abort(403, 'Role tidak dikenali.');
+        }
+
+        // Kirim role dan data ke view utama
+        return view('dashboard.dashboard', array_merge(['role' => $role], $data));
     }
 }

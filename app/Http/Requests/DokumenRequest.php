@@ -21,7 +21,7 @@ class DokumenRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'judul' => 'required|string|max:255',
             'abstrak' => 'required|string',
             'kata_kunci' => 'required|string',
@@ -30,8 +30,15 @@ class DokumenRequest extends FormRequest
             'fakultas' => 'required|exists:fakultas,id',
             'jurusan' => 'required|exists:jurusans,id',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'file_dokumen' => 'required|file|mimes:pdf,doc,docx|max:10240',
         ];
+
+        if ($this->isMethod('post')) {
+            $rules['file_dokumen'] = 'required|file|mimes:pdf,doc,docx|max:10240';
+        } else {
+            $rules['file_dokumen'] = 'nullable|file|mimes:pdf,doc,docx|max:10240';
+        }
+
+        return $rules;
     }
 
     public function messages(): array
