@@ -45,7 +45,6 @@ class Dokumen extends Model
         return $this->belongsTo(Jurusan::class);
     }
 
-    // Relasi ke dosen pembimbing
     public function dosen()
     {
         return $this->belongsTo(User::class, 'dosen_id');

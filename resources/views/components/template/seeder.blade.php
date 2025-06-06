@@ -29,7 +29,7 @@
               <h6 class="lan-1">General</h6>
             </div>
           </li>
-          
+
           @php
             $role = Auth::user()->getRoleNames()->first(); // Ambil role pertama user
           @endphp
@@ -48,59 +48,59 @@
           </li>
 
           @if ($role === 'admin')
-          <li class="sidebar-main-title">
-            <div>
-              <h6>Master</h6>
-            </div>
-          </li>
-          <li class="sidebar-list">
-            <i class="fa-solid fa-thumbtack"></i>
-            <a class="sidebar-link sidebar-title link-nav" href="/admin/kategori">
-              <svg class="stroke-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-sample-page"></use>
-              </svg>
-              <svg class="fill-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-sample-page"></use>
-              </svg>
-              <span>Kategori</span>
-            </a>
-          </li>
-          <li class="sidebar-list">
-            <i class="fa-solid fa-thumbtack"></i>
-            <a class="sidebar-link sidebar-title link-nav" href="/admin/fakultas">
-              <svg class="stroke-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-sitemap"></use>
-              </svg>
-              <svg class="fill-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-sitemap"></use>
-              </svg>
-              <span>Fakultas</span>
-            </a>
-          </li>
-          <li class="sidebar-list">
-            <i class="fa-solid fa-thumbtack"></i>
-            <a class="sidebar-link sidebar-title link-nav" href="/admin/jurusan">
-              <svg class="stroke-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-learning"></use>
-              </svg>
-              <svg class="fill-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-learning"></use>
-              </svg>
-              <span>Jurusan</span>
-            </a>
-          </li>
-          <li class="sidebar-list">
-            <i class="fa-solid fa-thumbtack"></i>
-            <a class="sidebar-link sidebar-title link-nav" href="#">
-              <svg class="stroke-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-user"></use>
-              </svg>
-              <svg class="fill-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-user"></use>
-              </svg>
-              <span>User</span>
-            </a>
-          </li>
+            <li class="sidebar-main-title">
+              <div>
+                <h6>Master</h6>
+              </div>
+            </li>
+            <li class="sidebar-list">
+              <i class="fa-solid fa-thumbtack"></i>
+              <a class="sidebar-link sidebar-title link-nav" href="/admin/kategori">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-sample-page"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-sample-page"></use>
+                </svg>
+                <span>Kategori</span>
+              </a>
+            </li>
+            <li class="sidebar-list">
+              <i class="fa-solid fa-thumbtack"></i>
+              <a class="sidebar-link sidebar-title link-nav" href="/admin/fakultas">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-sitemap"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-sitemap"></use>
+                </svg>
+                <span>Fakultas</span>
+              </a>
+            </li>
+            <li class="sidebar-list">
+              <i class="fa-solid fa-thumbtack"></i>
+              <a class="sidebar-link sidebar-title link-nav" href="/admin/jurusan">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-learning"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-learning"></use>
+                </svg>
+                <span>Jurusan</span>
+              </a>
+            </li>
+            <li class="sidebar-list">
+              <i class="fa-solid fa-thumbtack"></i>
+              <a class="sidebar-link sidebar-title link-nav" href="#">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-user"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-user"></use>
+                </svg>
+                <span>User</span>
+              </a>
+            </li>
           @endif
 
           <li class="sidebar-main-title">
@@ -108,32 +108,65 @@
               <h6>Operational</h6>
             </div>
           </li>
-          <li class="sidebar-list">
-            <i class="fa-solid fa-thumbtack"></i>
-            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dokumen.index') }}">
-              <svg class="stroke-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-file"></use>
-              </svg>
-              <svg class="fill-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-file"></use>
-              </svg>
-              <span>Dokumen</span>
-            </a>
-          </li>
+          @if ($role === 'dosen')
+            <li class="sidebar-list">
+              <i class="fa-solid fa-thumbtack"></i>
+              <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-file') }}"></use>
+                </svg>
+                <span>Dokumen</span>
+              </a>
+              <ul class="sidebar-submenu">
+                <li><a href="{{ route('dokumen.index') }}">Pribadi</a></li>
+                <li><a href="{{ route('dokumen.index', ['filter' => 'bimbingan']) }}">Mahasiswa Bimbingan</a></li>
+              </ul>
+            </li>
+          @else
+            <li class="sidebar-list">
+              <i class="fa-solid fa-thumbtack"></i>
+              <a class="sidebar-link sidebar-title link-nav" href="{{ route('dokumen.index') }}">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-file"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-file"></use>
+                </svg>
+                <span>Dokumen</span>
+              </a>
+            </li>
+          @endif
 
-          @if ($role === 'admin' || $role === 'dosen')
-          <li class="sidebar-list">
-            <i class="fa-solid fa-thumbtack"></i>
-            <a class="sidebar-link sidebar-title link-nav" href="#">
-              <svg class="stroke-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-ui-kits"></use>
-              </svg>
-              <svg class="fill-icon">
-                <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-ui-kits"></use>
-              </svg>
-              <span>Verifikasi</span>
-            </a>
-          </li>
+
+          @if ($role === 'admin')
+            <li class="sidebar-list">
+              <i class="fa-solid fa-thumbtack"></i>
+              <a class="sidebar-link sidebar-title link-nav" href="{{ route('documents.verifikasi.index') }}">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-ui-kits"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-ui-kits"></use>
+                </svg>
+                <span>Verifikasi</span>
+              </a>
+            </li>
+          @elseif ($role === 'dosen')
+            <li class="sidebar-list">
+              <i class="fa-solid fa-thumbtack"></i>
+              <a class="sidebar-link sidebar-title link-nav" href="{{ route('dosen.documents.verifikasi.index') }}">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-ui-kits"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#fill-ui-kits"></use>
+                </svg>
+                <span>Verifikasi</span>
+              </a>
+            </li>
           @endif
         </ul>
       </div>

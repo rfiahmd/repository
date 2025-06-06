@@ -16,23 +16,33 @@ use Illuminate\Support\Facades\Log;
 
 class DokumenController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
+        $filter = $request->query('filter', 'pribadi'); // default 'pribadi'
 
         if ($user->hasRole('admin')) {
+            // Admin lihat semua dokumen yang sudah verified
             $dokumens = Dokumen::with(['kategori', 'fakultas', 'jurusan'])
                 ->where('is_verified', true)
                 ->latest()
                 ->get();
+        } elseif ($user->hasRole('dosen') && $filter === 'bimbingan') {
+            // Dosen lihat dokumen mahasiswa bimbingannya
+            $dokumens = Dokumen::with(['kategori', 'fakultas', 'jurusan', 'user', 'dosen'])
+                ->where('dosen_id', $user->id)
+                ->where('is_verified', true)
+                ->latest()
+                ->get();
         } else {
+            // Dokumen pribadi dosen atau mahasiswa
             $dokumens = Dokumen::with(['kategori', 'fakultas', 'jurusan'])
                 ->where('user_id', $user->id)
                 ->latest()
                 ->get();
         }
 
-        return view('dokumen.dokumen', compact('dokumens'));
+        return view('dokumen.dokumen', compact('dokumens', 'filter'));
     }
 
     public function create()
@@ -162,7 +172,7 @@ class DokumenController extends Controller
 
         // Tetapkan dosen_id jika user adalah mahasiswa
         $dosenId = auth()->user()->hasRole('mahasiswa') ? $request->dosen_id : null;
-        
+
         // dd($request->all(), $dosenId, $dokumenName, $thumbnailName);
         try {
             $dokumen->update([

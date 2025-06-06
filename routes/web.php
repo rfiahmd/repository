@@ -6,7 +6,8 @@ use App\Http\Controllers\{
     DokumenController,
     JurusanController,
     KategoriController,
-    ProfileController
+    ProfileController,
+    VerifikasiDokumenController,
 };
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -45,8 +46,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:kelola-prodi')->resource('jurusan', JurusanController::class)->except(['create', 'edit']);
 
         // Verifikasi dokumen dosen
-        Route::middleware('can:verifikasi-dokumen')->put('/documents/{id}/verify', [DokumenController::class, 'verifyDosen'])->name('documents.verify.dosen');
-
+        Route::middleware('can:verifikasi-dokumen')->get('/dokumen/verifikasi', [VerifikasiDokumenController::class, 'index'])->name('documents.verifikasi.index');
+        Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{id}/verify', [VerifikasiDokumenController::class, 'verifyDosen'])->name('documents.verify.dosen');
+        Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{id}/unverify', [VerifikasiDokumenController::class, 'unverify'])->name('documents.unverify.dosen');
+        Route::get('/dokumen/{id}', [VerifikasiDokumenController::class, 'show'])->name('documents.show');
+        
         // Laporan & User Management (aktifkan kalau siap)
         // Route::middleware('can:kelola-user')->resource('users', UserController::class);
         // Route::middleware('can:lihat-laporan')->get('/reports', [ReportController::class, 'index'])->name('reports.index');
@@ -65,7 +69,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
         // Verifikasi dokumen mahasiswa bimbingan
-        Route::middleware('can:verifikasi-dokumen-mahasiswa')->put('/documents/{id}/verify-mahasiswa', [DokumenController::class, 'verifyMahasiswa'])->name('documents.verify.mahasiswa');
+        Route::middleware('can:verifikasi-dokumen-mahasiswa')->get('/dokumen/verifikasi', [VerifikasiDokumenController::class, 'index'])->name('dosen.documents.verifikasi.index');
+        Route::middleware('can:verifikasi-dokumen-mahasiswa')->put('/dokumen/{id}/verify', [VerifikasiDokumenController::class, 'verifyMahasiswa'])->name('documents.verify.mahasiswa');
+        Route::middleware('can:verifikasi-dokumen-mahasiswa')->put('/dokumen/{id}/unverify', [VerifikasiDokumenController::class, 'unverify'])->name('documents.unverify.mahasiswa');
     });
 
     // ===================== MAHASISWA ROUTES =====================

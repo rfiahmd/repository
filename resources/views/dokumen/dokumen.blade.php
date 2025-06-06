@@ -52,6 +52,11 @@
                 <thead>
                   <tr>
                     <th>No</th>
+                    @if ($filter === 'bimbingan')
+                      <th>Mahasiswa</th>
+                    @elseif ($role === 'mahasiswa')
+                      <th>Dosen Pembimbing</th>
+                    @endif
                     <th>Judul</th>
                     <th>Tahun</th>
                     <th>Kategori</th>
@@ -67,6 +72,11 @@
                   @foreach ($dokumens as $index => $dokumen)
                     <tr>
                       <td>{{ $index + 1 }}.</td>
+                      @if ($filter === 'bimbingan')
+                        <td>{{ $dokumen->user->name ?? '-' }}</td>
+                      @elseif ($role === 'mahasiswa')
+                        <td>{{ $dokumen->dosen->name ?? '-' }}</td>
+                      @endif
                       <td>@judul($dokumen->judul)</td>
                       <td>{{ $dokumen->tahun_publikasi }}</td>
                       <td>{{ $dokumen->kategori->nama_kategori ?? '-' }}</td>
@@ -90,6 +100,20 @@
                               <i class="fa-solid fa-circle-info"></i>
                             </button>
                           </li>
+                          @can('verifikasi-dokumen')
+                            <li class="unverify" style="margin-right: 7px">
+                              <form id="unverify-form-{{ $dokumen->id }}"
+                                action="{{ route('documents.unverify.dosen', $dokumen->id) }}" method="POST"
+                                style="display: inline;">
+                                @csrf
+                                @method('PUT')
+                                <button type="button" class="btn p-0 border-0 bg-transparent text-danger"
+                                  onclick="confirmUnverify({{ $dokumen->id }})" title="Batalkan Verifikasi">
+                                  <i class="fa-solid fa-xmark"></i>
+                                </button>
+                              </form>
+                            </li>
+                          @endcan
                           @if (!$dokumen->is_verified)
                             <li class="edit">
                               <a href="{{ route($editRoute, $dokumen->id) }}" class="text-warning">

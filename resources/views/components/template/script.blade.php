@@ -40,3 +40,47 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+  function confirmVerify(id) {
+    Swal.fire({
+      title: 'Yakin ingin memverifikasi dokumen ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, verifikasi!',
+      cancelButtonText: 'Batal',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById('verify-form-' + id).submit();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Dibatalkan',
+          'Verifikasi dokumen dibatalkan',
+          'info'
+        );
+      }
+    });
+  }
+
+  function confirmUnverify(id) {
+    Swal.fire({
+      title: 'Yakin ingin membatalkan verifikasi dokumen ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, batalkan!',
+      cancelButtonText: 'Batal',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById('unverify-form-' + id).submit();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Dibatalkan',
+          'Pembatalan verifikasi dibatalkan',
+          'info'
+        );
+      }
+    });
+  }
+</script>
