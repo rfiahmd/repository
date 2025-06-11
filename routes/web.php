@@ -9,14 +9,16 @@ use App\Http\Controllers\{
     ProfileController,
     VerifikasiDokumenController,
 };
+use App\Http\Controllers\landingpage\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 // ===================== ROUTE PUBLIK =====================
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    
+
+    Route::get('/', [HomeController::class, 'index'])->name('landingpage.home');
+    Route::get('/documents', [HomeController::class, 'document'])->name('landingpage.documents');
 });
 
 // ===================== ROUTE YANG MEMBUTUHKAN LOGIN =====================
