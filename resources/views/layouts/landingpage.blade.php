@@ -127,7 +127,7 @@
     </div>
 
     <footer class="black-bg text-white">
-        <div class="space-60"></div>
+        <div class="space-100"></div>
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-4">
@@ -194,7 +194,7 @@
                 </div>
             </div>
         </div>
-        <div class="space-60"></div>
+        <div class="space-100"></div>
     </footer>
 
     <!-- Vandor-JS -->

@@ -19,6 +19,7 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('landingpage.home');
     Route::get('/documents', [HomeController::class, 'document'])->name('landingpage.documents');
+    Route::get('/dokumen', [HomeController::class, 'search'])->name('dokumen.search');
 });
 
 // ===================== ROUTE YANG MEMBUTUHKAN LOGIN =====================
