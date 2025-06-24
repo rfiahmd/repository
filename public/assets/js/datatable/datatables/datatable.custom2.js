@@ -2,6 +2,8 @@
   $(document).ready(function () {
     // Basic table example
     $("#basic-1").DataTable();
+    $("#table-dosen").DataTable();
+    $("#table-mahasiswa").DataTable();
     $("#basic-2").DataTable({
       paging: true,
       ordering: false,

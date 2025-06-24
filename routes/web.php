@@ -8,6 +8,7 @@ use App\Http\Controllers\{
     KategoriController,
     ProfileController,
     VerifikasiDokumenController,
+    UserController,
 };
 use App\Http\Controllers\landingpage\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -44,8 +45,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // ===================== ADMIN ROUTES =====================
     Route::prefix('admin')->middleware('role:admin')->group(function () {
-        Route::middleware('can:kelola-kategori')->resource('kategori', KategoriController::class)->except(['create', 'edit']);
-        Route::middleware('can:kelola-fakultas')->resource('fakultas', FakultasController::class)->except(['create', 'edit']);
+        Route::middleware('can:kelola-kategori')->resource('kategori', KategoriController::class)->except(['create', 'edit', 'show']);
+        Route::middleware('can:kelola-fakultas')->resource('fakultas', FakultasController::class)->except(['create', 'edit', 'show']);
         Route::middleware('can:kelola-prodi')->resource('jurusan', JurusanController::class)->except(['create', 'edit']);
 
         // Verifikasi dokumen dosen
@@ -53,7 +54,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{id}/verify', [VerifikasiDokumenController::class, 'verifyDosen'])->name('documents.verify.dosen');
         Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{id}/unverify', [VerifikasiDokumenController::class, 'unverify'])->name('documents.unverify.dosen');
         Route::get('/dokumen/{id}', [VerifikasiDokumenController::class, 'show'])->name('documents.show');
-        
+
+        Route::middleware('can:kelola-user')->resource('custommer-service', UserController::class)->except(['create', 'edit']);
+
         // Laporan & User Management (aktifkan kalau siap)
         // Route::middleware('can:kelola-user')->resource('users', UserController::class);
         // Route::middleware('can:lihat-laporan')->get('/reports', [ReportController::class, 'index'])->name('reports.index');
