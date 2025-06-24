@@ -38,7 +38,8 @@
               $routeName = $isMahasiswa ? 'mahasiswa.documents.destroy' : 'documents.destroy';
             @endphp
 
-            @if ($role === 'mahasiswa' || $role === 'dosen')
+            @if ($role === 'mahasiswa' || ($role === 'dosen' && !request()->has('filter')))
+              {{-- Tombol tambah dokumen --}}
               <a href="{{ $createRoute }}" class="btn btn-primary btn-sm">
                 + Tambah Dokumen
               </a>
@@ -140,7 +141,6 @@
               </table>
             </div>
           </div>
-
         </div>
       </div>
     </div>
