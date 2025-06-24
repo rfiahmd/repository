@@ -34,8 +34,8 @@
           <div class="card-body">
             @php
               $routeAction = auth()->user()->hasRole('mahasiswa')
-                  ? route('mahasiswa.documents.update', $dokumen->id)
-                  : route('documents.update', $dokumen->id);
+                  ? route('mahasiswa.documents.update', $dokumen)
+                  : route('documents.update', $dokumen);
               $isMahasiswa = auth()->user()->hasRole('mahasiswa');
             @endphp
 

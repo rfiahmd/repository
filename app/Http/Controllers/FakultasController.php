@@ -30,10 +30,9 @@ class FakultasController extends Controller
     }
 
     // Update fakultas
-    public function update(FakultasRequest $request, $id)
+    public function update(FakultasRequest $request, Fakultas $fakulta)
     {
-        $fakultas = Fakultas::findOrFail($id);
-        $updated = $fakultas->update($request->validated());
+        $updated = $fakulta->update($request->validated());
 
         if ($updated) {
             return redirect()->back()->with('success', 'Fakultas berhasil diperbarui.');

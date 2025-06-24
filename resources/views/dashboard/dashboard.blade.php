@@ -5,16 +5,7 @@
     <div class="page-title">
       <div class="row">
         <div class="col-sm-6">
-          <h3>Default </h3>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html"> <svg class="stroke-icon">
-                  <use href="{{ asset('') }}assets/svg/icon-sprite.svg#stroke-home"></use>
-                </svg></a></li>
-            <li class="breadcrumb-item">Dashboard</li>
-            <li class="breadcrumb-item active">Default </li>
-          </ol>
+          <h3>Dashboard </h3>
         </div>
       </div>
     </div>
@@ -29,7 +20,7 @@
             <div class="d-flex media-wrapper justify-content-between">
               <div class="flex-grow-1">
                 <div class="greeting-user">
-                  <h2 class="f-w-600">Selamat Datang @namalengkap(Auth::user()->name)!</h2>
+                  <h2 class="f-w-600">Selamat Datang <br>@namalengkap(Auth::user()->name)!</h2>
                   <p>Here whats happing in your account today</p>
                   <div class="whatsnew-btn"><a class="btn btn-outline-white" href="user-profile.html" target="_blank">View
                       Profile</a></div>

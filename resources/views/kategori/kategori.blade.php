@@ -88,7 +88,7 @@
                             </a>
                           </li>
                           <li class="delete">
-                            <form action="{{ route('kategori.destroy', $kategori->id) }}" method="POST"
+                            <form action="{{ route('kategori.destroy', $kategori) }}" method="POST"
                               style="display: inline;">
                               @csrf
                               @method('DELETE')
@@ -111,7 +111,7 @@
                             <button type="button" class="btn-close py-0" data-bs-dismiss="modal"
                               aria-label="Close"></button>
                           </div>
-                          <form action="{{ route('kategori.update', $kategori->id) }}" method="POST"
+                          <form action="{{ route('kategori.update', $kategori) }}" method="POST"
                             class="needs-validation" novalidate>
                             @csrf
                             @method('PUT') <!-- Menggunakan method PUT untuk update -->

@@ -103,13 +103,13 @@
                           </li>
                           @can('verifikasi-dokumen')
                             <li class="unverify" style="margin-right: 7px">
-                              <form id="unverify-form-{{ $dokumen->id }}"
-                                action="{{ route('documents.unverify.dosen', $dokumen->id) }}" method="POST"
+                              <form id="unverify-form-{{ $dokumen }}"
+                                action="{{ route('documents.unverify.dosen', $dokumen) }}" method="POST"
                                 style="display: inline;">
                                 @csrf
                                 @method('PUT')
                                 <button type="button" class="btn p-0 border-0 bg-transparent text-danger"
-                                  onclick="confirmUnverify({{ $dokumen->id }})" title="Batalkan Verifikasi">
+                                  onclick="confirmUnverify({{ $dokumen }})" title="Batalkan Verifikasi">
                                   <i class="fa-solid fa-xmark"></i>
                                 </button>
                               </form>
@@ -117,12 +117,12 @@
                           @endcan
                           @if (!$dokumen->is_verified)
                             <li class="edit">
-                              <a href="{{ route($editRoute, $dokumen->id) }}" class="text-warning">
+                              <a href="{{ route($editRoute, $dokumen) }}" class="text-warning">
                                 <i class="fa-regular fa-pen-to-square"></i>
                               </a>
                             </li>
                             <li class="delete">
-                              <form action="{{ route($routeName, $dokumen->id) }}" method="POST"
+                              <form action="{{ route($routeName, $dokumen) }}" method="POST"
                                 style="display: inline;">
                                 @csrf
                                 @method('DELETE')

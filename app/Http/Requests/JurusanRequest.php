@@ -24,11 +24,9 @@ class JurusanRequest extends FormRequest
     {
         $id = $this->route('jurusan');
 
-        $id = is_object($id) ? $id->id : $id;
-
         return [
-            'nama_jurusan' => ['required', 'string', 'max:100', Rule::unique('jurusans', 'nama_jurusan')->ignore($id)],
-            'kode_jurusan' => ['required', 'string', 'max:10', Rule::unique('jurusans', 'kode_jurusan')->ignore($id)],
+            'nama_jurusan' => ['required', 'string', 'max:100', Rule::unique('jurusans')->ignore($id)],
+            'kode_jurusan' => ['required', 'string', 'max:10', Rule::unique('jurusans')->ignore($id)],
             'fakultas_id' => 'required|exists:fakultas,id',
         ];
     }

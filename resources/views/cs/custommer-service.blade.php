@@ -70,12 +70,23 @@
                   <div class="col-xxl-12 box-col-12">
                     <div class="card">
                       <div class="card-header pb-0 card-no-border d-flex justify-content-between align-items-center">
-                        <h5>Data Dosen</h5>
-                        <button class="btn btn-primary btn-sm open-create" data-role="dosen" data-bs-toggle="offcanvas"
-                          data-bs-target="#offcanvasCreate">
-                          + Tambah Dosen
-                        </button>
-                      </div>
+                        <h5 class="mb-0">Data Dosen</h5>
+                        <div class="d-flex align-items-center gap-2">
+                          <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="role" value="dosen">
+                            <label class="btn btn-success btn-sm mb-0 d-flex align-items-center gap-1">
+                              <i class="fa fa-file-import"></i> Import Excel
+                              <input type="file" name="file" onchange="this.form.submit()" hidden>
+                            </label>
+                          </form>
+                      
+                          <button class="btn btn-primary btn-sm d-flex align-items-center gap-1 open-create" data-role="dosen"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreate">
+                            <i class="fa fa-plus"></i> Tambah Dosen
+                          </button>
+                        </div>
+                      </div>                      
 
                       {{-- Tabel Dosen --}}
                       <div class="card-body">
@@ -108,7 +119,7 @@
                                         </a>
                                       </li>
                                       <li class="delete">
-                                        <form action="{{ route('custommer-service.destroy', $item->id) }}" method="POST"
+                                        <form action="{{ route('custommer-service.destroy', $item) }}" method="POST"
                                           style="display: inline;">
                                           @csrf
                                           @method('DELETE')
@@ -138,12 +149,23 @@
                   <div class="col-12">
                     <div class="card">
                       <div class="card-header pb-0 card-no-border d-flex justify-content-between align-items-center">
-                        <h5>Data Mahasiswa</h5>
-                        <button class="btn btn-primary btn-sm open-create" data-role="mahasiswa"
-                          data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreate">
-                          + Tambah Mahasiswa
-                        </button>
-                      </div>
+                        <h5 class="mb-0">Data Mahasiswa</h5>
+                        <div class="d-flex align-items-center gap-2">
+                          <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="role" value="mahasiswa">
+                            <label class="btn btn-success btn-sm mb-0 d-flex align-items-center gap-1">
+                              <i class="fa fa-file-import"></i> Import Excel
+                              <input type="file" name="file" onchange="this.form.submit()" hidden>
+                            </label>
+                          </form>
+                      
+                          <button class="btn btn-primary btn-sm d-flex align-items-center gap-1 open-create" data-role="mahasiswa"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreate">
+                            <i class="fa fa-plus"></i> Tambah Mahasiswa
+                          </button>
+                        </div>
+                      </div>                      
 
                       {{-- Tabel Mahasiswa --}}
                       <div class="card-body">
@@ -172,7 +194,7 @@
                                         </a>
                                       </li>
                                       <li class="delete">
-                                        <form action="{{ route('custommer-service.destroy', $item->id) }}"
+                                        <form action="{{ route('custommer-service.destroy', $item) }}"
                                           method="POST" style="display: inline;">
                                           @csrf
                                           @method('DELETE')
@@ -215,34 +237,53 @@
         <form action="{{ route('custommer-service.store') }}" method="POST" class="needs-validation" novalidate>
           @csrf
 
-          {{-- Akan diisi dinamis lewat JS --}}
           <input type="hidden" name="role" id="inputRole">
 
           <div class="modal-body">
             <div class="mb-3">
-              <label for="nip_nim" class="form-label">NIP / NIM <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="nip_nim" required>
-              <div class="invalid-feedback">NIP / NIM harus diisi</div>
+              <label class="form-label">NIP / NIM <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="nip_nim" value="{{ old('nip_nim') }}" required>
+              @error('nip_nim')
+                <div class="text-danger small">{{ $message }}</div>
+              @enderror
             </div>
+
             <div class="mb-3">
-              <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="name" required>
-              <div class="invalid-feedback">Nama harus diisi</div>
+              <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="name" value="{{ old('nama') }}" required>
+              @error('nama')
+                <div class="text-danger small">{{ $message }}</div>
+              @enderror
             </div>
+
             <div class="mb-3">
-              <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="username" required>
-              <div class="invalid-feedback">Username harus diisi</div>
+              <label class="form-label">Email <span class="text-danger">*</span></label>
+              <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+              @error('email')
+                <div class="text-danger small">{{ $message }}</div>
+              @enderror
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-              <input type="email" class="form-control" name="email" required>
-              <div class="invalid-feedback">Email harus valid</div>
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-              <input type="password" class="form-control" name="password" required>
-              <div class="invalid-feedback">Password harus diisi</div>
+
+            <div class="mb-3 position-relative">
+              <label class="form-label">Password <span class="text-danger">*</span></label>
+              <input id="manualPassword" class="form-control" type="password" name="password" placeholder="*******">
+              <button type="button" id="toggleManualPassword"
+                style="
+                  position:absolute;
+                  right:15px;
+                  top:70%;
+                  transform:translateY(-50%);
+                  background: none;
+                  border: none;
+                  padding: 0;
+                  cursor: pointer;
+                  font-size: 14px;
+                  color: #888;">
+                <i class="fas fa-eye" id="manualEyeIcon"></i>
+              </button>
+              @error('password')
+                <div class="text-danger small">{{ $message }}</div>
+              @enderror
             </div>
           </div>
 
@@ -251,6 +292,7 @@
             <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
         </form>
+
       </div>
     </div>
   </div>
@@ -264,7 +306,7 @@
           <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body custom-input custom-scrollbar">
-          <form action="{{ route('custommer-service.update', $u->id) }}" method="POST" class="needs-validation"
+          <form action="{{ route('custommer-service.update', $u) }}" method="POST" class="needs-validation"
             novalidate>
             @csrf
             @method('PUT')
@@ -312,6 +354,20 @@
           const role = this.getAttribute('data-role');
           roleInput.value = role;
         });
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const passwordInput = document.getElementById("manualPassword");
+      const toggleBtn = document.getElementById("toggleManualPassword");
+      const eyeIcon = document.getElementById("manualEyeIcon");
+
+      let isShown = false;
+
+      toggleBtn.addEventListener("click", function() {
+        isShown = !isShown;
+        passwordInput.type = isShown ? "text" : "password";
+        eyeIcon.classList = isShown ? "fas fa-eye-slash" : "fas fa-eye";
       });
     });
   </script>

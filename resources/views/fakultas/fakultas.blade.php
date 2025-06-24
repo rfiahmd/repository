@@ -62,7 +62,7 @@
                             </a>
                           </li>
                           <li class="delete">
-                            <form action="{{ route('fakultas.destroy', $f->token_fakultas) }}" method="POST" style="display: inline;">
+                            <form action="{{ route('fakultas.destroy', $f) }}" method="POST" style="display: inline;">
                               @csrf
                               @method('DELETE')
                               <button type="button" onclick="confirmDelete(this)" class="btn p-0 border-0 bg-transparent">
@@ -123,7 +123,7 @@
           <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body custom-input custom-scrollbar">
-          <form action="{{ route('fakultas.update', $f->id) }}" method="POST" class="needs-validation" novalidate>
+          <form action="{{ route('fakultas.update', $f) }}" method="POST" class="needs-validation" novalidate>
             @csrf
             @method('PUT')
             <div class="modal-body">

@@ -31,9 +31,8 @@ class JurusanController extends Controller
     }
 
     // Update jurusan
-    public function update(JurusanRequest $request, $id)
+    public function update(JurusanRequest $request, Jurusan $jurusan)
     {
-        $jurusan = Jurusan::findOrFail($id);
         $updated = $jurusan->update($request->validated());
 
         if ($updated) {

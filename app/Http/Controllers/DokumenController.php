@@ -115,14 +115,8 @@ class DokumenController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(Dokumen $dokumen)
     {
-        $dokumen = Dokumen::findOrFail($id);
-
-        if ($dokumen->user_id !== auth()->id()) {
-            abort(403, 'Anda tidak memiliki izin untuk mengedit dokumen ini.');
-        }
-
         $data = [
             'dokumen' => $dokumen,
             'dosens' => User::role('dosen')->get(),

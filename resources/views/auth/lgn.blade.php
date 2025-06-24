@@ -88,9 +88,7 @@
                     {{-- <input class="form-check-input" type="checkbox" name="remember" id="remember_me" {{ old('remember') ? 'checked' : '' }}>
                       <label class="form-check-label" for="remember_me">Remember me</label> --}}
                   </div>
-                  @if (Route::has('password.request'))
-                    <a class="link" href="{{ route('password.request') }}">Forgot password?</a>
-                  @endif
+                  <a class="link" href="{{ route('password.request') }}">Forgot password?</a>
                   <div class="text-end">
                     <button class="btn btn-primary btn-block w-100 mt-3" type="submit">Sign in</button>
                   </div>

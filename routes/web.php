@@ -9,6 +9,7 @@ use App\Http\Controllers\{
     ProfileController,
     VerifikasiDokumenController,
     UserController,
+    ForgotPasswordController
 };
 use App\Http\Controllers\landingpage\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,18 @@ Route::middleware('guest')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('landingpage.home');
     Route::get('/documents', [HomeController::class, 'document'])->name('landingpage.documents');
     Route::get('/dokumen', [HomeController::class, 'search'])->name('dokumen.search');
+
+    Route::prefix('password')
+        ->name('password.')
+        ->group(function () {
+            Route::get('/forgot', [ForgotPasswordController::class, 'showEmailForm'])->name('request');
+            Route::post('/send-otp', [ForgotPasswordController::class, 'sendOtp'])->name('send-otp');
+            Route::get('/otp/{email}', [ForgotPasswordController::class, 'showOtpForm'])->name('otp-form');
+            Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('verify-otp');
+            Route::get('/reset/{email}/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('reset-form');
+            Route::post('/reset', [ForgotPasswordController::class, 'resetPassword'])->name('update');
+            Route::post('/resend-otp', [ForgotPasswordController::class, 'resendOtp'])->name('resend-otp');
+        });
 });
 
 // ===================== ROUTE YANG MEMBUTUHKAN LOGIN =====================
@@ -51,15 +64,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Verifikasi dokumen dosen
         Route::middleware('can:verifikasi-dokumen')->get('/dokumen/verifikasi', [VerifikasiDokumenController::class, 'index'])->name('documents.verifikasi.index');
-        Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{id}/verify', [VerifikasiDokumenController::class, 'verifyDosen'])->name('documents.verify.dosen');
-        Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{id}/unverify', [VerifikasiDokumenController::class, 'unverify'])->name('documents.unverify.dosen');
-        Route::get('/dokumen/{id}', [VerifikasiDokumenController::class, 'show'])->name('documents.show');
+        Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{dokumen}/verify', [VerifikasiDokumenController::class, 'verifyDosen'])->name('documents.verify.dosen');
+        Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{dokumen}/unverify', [VerifikasiDokumenController::class, 'unverify'])->name('documents.unverify.dosen');
+        Route::get('/dokumen/{dokumen}', [VerifikasiDokumenController::class, 'show'])->name('documents.show');
 
-        Route::middleware('can:kelola-user')->resource('custommer-service', UserController::class)->except(['create', 'edit']);
-
-        // Laporan & User Management (aktifkan kalau siap)
-        // Route::middleware('can:kelola-user')->resource('users', UserController::class);
-        // Route::middleware('can:lihat-laporan')->get('/reports', [ReportController::class, 'index'])->name('reports.index');
+        Route::middleware('can:kelola-user')->resource('custommer-service', UserController::class)->except(['create', 'edit', 'show']);
+        Route::post('/import-users', [UserController::class, 'import'])->name('users.import');
     });
 
     // ===================== DOSEN ROUTES =====================
@@ -68,7 +78,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:upload-dokumen')->get('/dokumen/create', [DokumenController::class, 'create'])->name('documents.create');
         Route::middleware('can:upload-dokumen')->post('/documents', [DokumenController::class, 'store'])->name('documents.store');
 
-        Route::middleware('can:edit-dokumen')->get('/documents/{id}/edit', [DokumenController::class, 'edit'])->name('documents.edit');
+        Route::middleware('can:edit-dokumen')->get('/documents/{dokumen}/edit', [DokumenController::class, 'edit'])->name('documents.edit');
         Route::middleware('can:edit-dokumen')->put('/documents/{dokumen}', [DokumenController::class, 'update'])->name('documents.update');
 
         Route::middleware('can:hapus-dokumen')->delete('/documents/{document}', [DokumenController::class, 'destroy'])->name('documents.destroy');
@@ -76,8 +86,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Verifikasi dokumen mahasiswa bimbingan
         Route::middleware('can:verifikasi-dokumen-mahasiswa')->get('/dokumen/verifikasi', [VerifikasiDokumenController::class, 'index'])->name('dosen.documents.verifikasi.index');
-        Route::middleware('can:verifikasi-dokumen-mahasiswa')->put('/dokumen/{id}/verify', [VerifikasiDokumenController::class, 'verifyMahasiswa'])->name('documents.verify.mahasiswa');
-        Route::middleware('can:verifikasi-dokumen-mahasiswa')->put('/dokumen/{id}/unverify', [VerifikasiDokumenController::class, 'unverify'])->name('documents.unverify.mahasiswa');
+        Route::middleware('can:verifikasi-dokumen-mahasiswa')->put('/dokumen/{dokumen}/verify', [VerifikasiDokumenController::class, 'verifyMahasiswa'])->name('documents.verify.mahasiswa');
+        Route::middleware('can:verifikasi-dokumen-mahasiswa')->put('/dokumen/{dokumen}/unverify', [VerifikasiDokumenController::class, 'unverify'])->name('documents.unverify.mahasiswa');
     });
 
     // ===================== MAHASISWA ROUTES =====================

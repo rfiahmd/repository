@@ -23,12 +23,11 @@ class FakultasRequest extends FormRequest
 
     public function rules(): array
     {
-        $id = $this->route('fakultas'); // Pastikan ini sesuai dengan resource name di route
-        $id = is_object($id) ? $id->id : $id;
+        $id = $this->route('fakulta');
 
         return [
-            'nama_fakultas' => ['required', 'string', 'max:100', Rule::unique('fakultas', 'nama_fakultas')->ignore($id)],
-            'kode_fakultas' => ['required', 'string', 'max:5', Rule::unique('fakultas', 'kode_fakultas')->ignore($id)],
+            'nama_fakultas' => ['required', 'string', 'max:100', Rule::unique('fakultas')->ignore($id)],
+            'kode_fakultas' => ['required', 'string', 'max:5', Rule::unique('fakultas')->ignore($id)],
         ];
     }
 

@@ -22,12 +22,10 @@ class KategoriRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('kategori'); // Pastikan parameter sesuai nama resource
-
-        $id = is_object($id) ? $id->id : $id;
+        $id = $this->route('kategori'); 
 
         return [
-            'nama_kategori' => ['required', 'string', 'max:50', Rule::unique('kategoris', 'nama_kategori')->ignore($id)],
+            'nama_kategori' => ['required', 'string', 'max:50', Rule::unique('kategoris')->ignore($id)],
             'deskripsi' => 'nullable|string',
         ];
     }
