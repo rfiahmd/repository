@@ -162,7 +162,7 @@
                 <div class="col-xs-12 col-md-10 pull-right">
                     <div class="space-20"></div>
                     <div class="row">
-                        @forelse ($dokumens as $document => $item)
+                        @forelse ($dokumen as $document => $item)
                             {{-- Pastikan Anda menggunakan $document sebagai nama variabel loop --}}
                             {{-- Pastikan Anda menggunakan $item sebagai nama variabel loop --}}
                             <div class="col-xs-12 col-md-6">
@@ -188,7 +188,10 @@
                                             <h6>{{ $item->tahun_publikasi }}</h6>
                                             <div class="space-10"></div>
                                             <p>{{ Str::limit($item->abstrak, 150, '...') }}</p>
-                                            <a href="#" class="btn btn-primary btn-sm">Unduh Dokumen</a>
+                                            <a href="{{ route('dokumen.unduh', $item->token_dokumen) }}"
+                                                class="btn btn-primary btn-sm">Unduh
+                                                ({{ $item->jumlah_diunduh}})
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -229,13 +232,10 @@
                             <h4>Category</h4>
                             <hr>
                             <ul class="list-unstyled menu-tip">
-                                <li><a href="#">Music</a></li>
-                                <li><a href="#">Marketing</a></li>
-                                <li><a href="#">Politics</a></li>
-                                <li><a href="#">Creative</a></li>
-                                <li><a href="#">Methematics</a></li>
-                                <li><a href="#">Geography</a></li>
-                                <li><a href="#">Technology</a></li>
+                                <li><a href="#">Jurnal </a></li>
+                                <li><a href="#">Skripsi</a></li>
+                                <li><a href="#">Tugas</a></li>
+                                <li><a href="#">Makalah</a></li>
                             </ul>
                             <a href="#" class="btn btn-primary btn-xs">See All</a>
                         </div>

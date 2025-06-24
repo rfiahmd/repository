@@ -92,6 +92,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:hapus-dokumen')->delete('/documents/{document}', [DokumenController::class, 'destroy'])->name('mahasiswa.documents.destroy');
 
         Route::get('/dokumen', [DokumenController::class, 'index'])->name('mahasiswa.dokumen.index');
+        Route::get('/dokumen/unduh/{token}', [DokumenController::class, 'unduh'])->name('dokumen.unduh');
     });
 });
 

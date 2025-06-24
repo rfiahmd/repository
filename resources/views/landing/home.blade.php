@@ -49,12 +49,10 @@
                     <div class="space-60"></div>
                     <div class="my-slider">
                         <ul>
-                            <li><img src="{{ asset('assetLP') }}/images/about-slide/slide1.jpg" alt="library"></li>
-                            <li><img src="{{ asset('assetLP') }}/images/about-slide/slide2.jpg" alt="library"></li>
-                            <li><img src="{{ asset('assetLP') }}/images/about-slide/slide3.jpg" alt="library"></li>
-                            <li><img src="{{ asset('assetLP') }}/images/about-slide/slide4.jpg" alt="library"></li>
-                            <li><img src="{{ asset('assetLP') }}/images/about-slide/slide5.jpg" alt="library"></li>
-                            <li><img src="{{ asset('assetLP') }}/images/about-slide/slide6.jpg" alt="library"></li>
+                            <li><img src="{{ asset('assetLP') }}/images/about-slide/gambar1.jpg" alt="library"></li>
+                            <li><img src="{{ asset('assetLP') }}/images/about-slide/gambar2.jpg" alt="library"></li>
+                            <li><img src="{{ asset('assetLP') }}/images/about-slide/gambar3.jpg" alt="library"></li>
+                            <li><img src="{{ asset('assetLP') }}/images/about-slide/gambar4.jpg" alt="library"></li>
                         </ul>
                     </div>
                     <div class="mama"></div>
