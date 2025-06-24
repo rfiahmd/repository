@@ -43,16 +43,7 @@
         <!-- Header-background-markup -->
         <div class="header-bg relative home-slide">
             <div class="item">
-                <img src="{{ asset('assetLP') }}/images/slide/slide1.jpg" alt="library">
-            </div>
-            <div class="item">
-                <img src="{{ asset('assetLP') }}/images/slide/slide2.jpg" alt="library">
-            </div>
-            <div class="item">
-                <img src="{{ asset('assetLP') }}/images/slide/slide3.jpg" alt="library">
-            </div>
-            <div class="item">
-                <img src="{{ asset('assetLP') }}/images/slide/slide4.jpg" alt="library">
+                <img src="{{ asset('assetLP') }}/images/slide/slide4.webp" alt="library">
             </div>
         </div>
         <!-- Mainmenu-markup-start -->
@@ -75,19 +66,12 @@
 
                     <!--Active User-->
                     <div class="nav navbar-right">
-                        <div class="active-user navbar-left active">
+                        <div class="navbar-left active">
                             <ul class="list-unstyled">
                                 <li>
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="{{ asset('assetLP') }}/images/active_user.png"
-                                            class="img-circle img-thumbnail" alt="library" />
+                                    <a href="{{ route('login') }}" class="btn btn-primary" style="margin-top:10px;">
+                                        <i class="icofont icofont-login"></i> Login
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#"> <span><i class="icofont icofont-logout"></i></span> Log
-                                                Out</a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                         </div>

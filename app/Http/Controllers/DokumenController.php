@@ -226,4 +226,21 @@ class DokumenController extends Controller
         $jurusan = Jurusan::where('fakultas_id', $fakultas_id)->get();
         return response()->json($jurusan);
     }
+    
+    public function unduh($token)
+{
+    // Cari dokumen berdasarkan token
+    $dokumen = Dokumen::where('token_dokumen', $token)->firstOrFail();
+
+    // Cek apakah file ada
+    if (!Storage::disk('public')->exists($dokumen->file_path)) {
+        return back()->with('error', 'File tidak ditemukan.');
+    }
+
+    // Tambah jumlah unduhan
+    $dokumen->increment('jumlah_diunduh');
+
+    // Unduh file
+    return Storage::disk('public')->download($dokumen->file_path, $dokumen->judul . '.pdf');
+}
 }
