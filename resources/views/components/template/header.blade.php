@@ -85,7 +85,7 @@
 
           </div>
           <ul class="profile-dropdown onhover-show-div">
-            <li><a href="sign-up.html"><i data-feather="user"></i><span>Account </span></a></li>
+            {{-- <li><a href="sign-up.html"><i data-feather="user"></i><span>Account </span></a></li> --}}
             <li>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf

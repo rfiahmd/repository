@@ -226,21 +226,31 @@ class DokumenController extends Controller
         $jurusan = Jurusan::where('fakultas_id', $fakultas_id)->get();
         return response()->json($jurusan);
     }
-    
-    public function unduh($token)
-{
-    // Cari dokumen berdasarkan token
-    $dokumen = Dokumen::where('token_dokumen', $token)->firstOrFail();
 
-    // Cek apakah file ada
-    if (!Storage::disk('public')->exists($dokumen->file_path)) {
-        return back()->with('error', 'File tidak ditemukan.');
+    public function unduh(Dokumen $dokumen)
+    {
+        $filePath = 'dokumen/file/' . $dokumen->file_path;
+
+        if (!Storage::disk('public')->exists($filePath)) {
+            abort(404, 'File tidak ditemukan');
+        }
+
+        // Kembalikan file download
+        return Storage::disk('public')->download($filePath, $dokumen->file_path);
     }
 
-    // Tambah jumlah unduhan
-    $dokumen->increment('jumlah_diunduh');
+    public function download(Dokumen $dokumen)
+    {
+        $filePath = 'dokumen/file/' . $dokumen->file_path;
 
-    // Unduh file
-    return Storage::disk('public')->download($dokumen->file_path, $dokumen->judul . '.pdf');
-}
+        if (!Storage::disk('public')->exists($filePath)) {
+            abort(404, 'File tidak ditemukan');
+        }
+
+        // Tambahkan jumlah unduhan
+        $dokumen->increment('jumlah_diunduh');
+
+        // Kembalikan file download
+        return Storage::disk('public')->download($filePath, $dokumen->file_path);
+    }
 }

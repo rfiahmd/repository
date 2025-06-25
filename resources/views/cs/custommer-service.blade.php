@@ -174,8 +174,10 @@
                             <thead>
                               <tr>
                                 <th>No</th>
-                                <th>Nama</th>
                                 <th>NIM</th>
+                                <th>Nama</th>
+                                <th>Username</th>
+                                <th>Email</th>
                                 <th>Aksi</th>
                               </tr>
                             </thead>
@@ -183,8 +185,10 @@
                               @forelse ($mahasiswa as $index => $item)
                                 <tr>
                                   <td>{{ $index + 1 }}.</td>
-                                  <td>{{ $item->name }}</td>
                                   <td>{{ $item->nip_nim }}</td>
+                                  <td>{{ $item->name }}</td>
+                                  <td>{{ $item->username }}</td>
+                                  <td>{{ $item->email }}</td>
                                   <td>
                                     <ul class="action">
                                       <li class="edit">

@@ -14,12 +14,22 @@ class HomeController extends Controller
         $kategoris = Kategori::all();
         return view('landing.home', compact('kategoris'));
     }
-    public function document()
+
+    public function document(Request $request)
     {
         $kategoris = Kategori::all();
-        $dokumen = Dokumen::all();
+
+        $dokumen = Dokumen::where('is_published', true)
+            ->when($request->kategori_id, function ($query) use ($request) {
+                $query->where('kategori_id', $request->kategori_id);
+            })
+            ->orderByDesc('created_at')
+            ->paginate(10)
+            ->withQueryString();
+
         return view('landing.documents', compact('dokumen', 'kategoris'));
     }
+
     public function search(Request $request)
     {
         $search_type = $request->input('search_type', 'judul'); // Default ke 'judul' jika tidak ada

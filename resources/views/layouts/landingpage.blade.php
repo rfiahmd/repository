@@ -30,14 +30,42 @@
     <link rel="stylesheet" href="{{ asset('assetLP') }}/style.css">
     <link rel="stylesheet" href="{{ asset('assetLP') }}/css/responsive.css">
     <script src="{{ asset('assetLP') }}/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        .custom-pagination {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin-bottom: 30px;
+        }
+      
+        .custom-pagination .page-link {
+          padding: 6px 12px;
+          background-color: #f2f2f2;
+          color: #333;
+          text-decoration: none;
+          border-radius: 4px;
+          border: 1px solid #ddd;
+          font-size: 14px;
+        }
+      
+        .custom-pagination .page-link:hover {
+          background-color: #e0e0e0;
+        }
+      
+        .custom-pagination .current {
+          background-color: #007bff;
+          color: white;
+          pointer-events: none;
+        }
+      </style>
+      
 </head>
 
 <body data-spy="scroll" data-target="#mainmenu" data-offset="50">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-
 
     <header class="relative" id="sc1">
         <!-- Header-background-markup -->

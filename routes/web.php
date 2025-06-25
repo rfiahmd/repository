@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Auth;
 
 // ===================== ROUTE PUBLIK =====================
 Route::middleware('guest')->group(function () {
-    
-
+    // Landing Page
     Route::get('/', [HomeController::class, 'index'])->name('landingpage.home');
     Route::get('/documents', [HomeController::class, 'document'])->name('landingpage.documents');
     Route::get('/dokumen', [HomeController::class, 'search'])->name('dokumen.search');
+    Route::get('/dokumen/download/{dokumen}', [DokumenController::class, 'download'])->name('dokumen.download');
 
     Route::prefix('password')
         ->name('password.')
@@ -50,6 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // dokumen
     Route::get('/dokumens', [DokumenController::class, 'index'])->name('dokumen.index');
     Route::get('/get-jurusan/{fakultas_id}', [DokumenController::class, 'getJurusan']);
+    Route::get('auth/dokumen/download/{dokumen}', [DokumenController::class, 'download'])->name('auth.dokumen.download');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -61,6 +62,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:kelola-kategori')->resource('kategori', KategoriController::class)->except(['create', 'edit', 'show']);
         Route::middleware('can:kelola-fakultas')->resource('fakultas', FakultasController::class)->except(['create', 'edit', 'show']);
         Route::middleware('can:kelola-prodi')->resource('jurusan', JurusanController::class)->except(['create', 'edit']);
+        Route::middleware('can:kelola-user')->resource('custommer-service', UserController::class)->except(['create', 'edit', 'show']);
+        Route::post('/import-users', [UserController::class, 'import'])->name('users.import');
 
         // Verifikasi dokumen dosen
         Route::middleware('can:verifikasi-dokumen')->get('/dokumen/verifikasi', [VerifikasiDokumenController::class, 'index'])->name('documents.verifikasi.index');
@@ -68,8 +71,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('can:verifikasi-dokumen')->put('/dokumen/{dokumen}/unverify', [VerifikasiDokumenController::class, 'unverify'])->name('documents.unverify.dosen');
         Route::get('/dokumen/{dokumen}', [VerifikasiDokumenController::class, 'show'])->name('documents.show');
 
-        Route::middleware('can:kelola-user')->resource('custommer-service', UserController::class)->except(['create', 'edit', 'show']);
-        Route::post('/import-users', [UserController::class, 'import'])->name('users.import');
     });
 
     // ===================== DOSEN ROUTES =====================
@@ -77,12 +78,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // CRUD dokumen (dosen)
         Route::middleware('can:upload-dokumen')->get('/dokumen/create', [DokumenController::class, 'create'])->name('documents.create');
         Route::middleware('can:upload-dokumen')->post('/documents', [DokumenController::class, 'store'])->name('documents.store');
-
         Route::middleware('can:edit-dokumen')->get('/documents/{dokumen}/edit', [DokumenController::class, 'edit'])->name('documents.edit');
         Route::middleware('can:edit-dokumen')->put('/documents/{dokumen}', [DokumenController::class, 'update'])->name('documents.update');
-
         Route::middleware('can:hapus-dokumen')->delete('/documents/{document}', [DokumenController::class, 'destroy'])->name('documents.destroy');
-
 
         // Verifikasi dokumen mahasiswa bimbingan
         Route::middleware('can:verifikasi-dokumen-mahasiswa')->get('/dokumen/verifikasi', [VerifikasiDokumenController::class, 'index'])->name('dosen.documents.verifikasi.index');
@@ -93,15 +91,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ===================== MAHASISWA ROUTES =====================
     Route::prefix('mahasiswa')->middleware('role:mahasiswa')->group(function () {
         // CRUD dokumen (mahasiswa)
+        Route::get('/dokumen', [DokumenController::class, 'index'])->name('mahasiswa.dokumen.index');
         Route::middleware('can:upload-dokumen')->get('/dokumen/create', [DokumenController::class, 'create'])->name('mahasiswa.documents.create');
         Route::middleware('can:upload-dokumen')->post('/documents', [DokumenController::class, 'store'])->name('mahasiswa.documents.store');
-
         Route::middleware('can:edit-dokumen')->get('/documents/{id}/edit', [DokumenController::class, 'edit'])->name('mahasiswa.documents.edit');
         Route::middleware('can:edit-dokumen')->put('/documents/{dokumen}', [DokumenController::class, 'update'])->name('mahasiswa.documents.update');
-
         Route::middleware('can:hapus-dokumen')->delete('/documents/{document}', [DokumenController::class, 'destroy'])->name('mahasiswa.documents.destroy');
-
-        Route::get('/dokumen', [DokumenController::class, 'index'])->name('mahasiswa.dokumen.index');
         Route::get('/dokumen/unduh/{token}', [DokumenController::class, 'unduh'])->name('dokumen.unduh');
     });
 });

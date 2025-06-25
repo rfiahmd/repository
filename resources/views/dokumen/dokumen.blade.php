@@ -97,10 +97,12 @@
                       <td>
                         <ul class="action">
                           <li class="info" style="margin-right: 7px">
-                            <button type="button" class="btn p-0 border-0 bg-transparent text-secondary">
+                            <button type="button" class="btn p-0 border-0 bg-transparent text-secondary"
+                              data-bs-toggle="modal" data-bs-target="#modalDetailDokumen{{ $dokumen->id }}">
                               <i class="fa-solid fa-circle-info"></i>
                             </button>
                           </li>
+                          
                           @can('verifikasi-dokumen')
                             <li class="unverify" style="margin-right: 7px">
                               <form id="unverify-form-{{ $dokumen }}"
@@ -122,8 +124,7 @@
                               </a>
                             </li>
                             <li class="delete">
-                              <form action="{{ route($routeName, $dokumen) }}" method="POST"
-                                style="display: inline;">
+                              <form action="{{ route($routeName, $dokumen) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" onclick="confirmDelete(this)"
@@ -136,6 +137,55 @@
                         </ul>
                       </td>
                     </tr>
+                    <!-- Modal Detail Dokumen -->
+                    <div class="modal fade" id="modalDetailDokumen{{ $dokumen->id }}" tabindex="-1"
+                      aria-labelledby="modalLabel{{ $dokumen->id }}" aria-hidden="true">
+                      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="modalLabel{{ $dokumen->id }}">Detail Dokumen</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                              aria-label="Tutup"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row">
+                              {{-- Thumbnail --}}
+                              <div class="col-md-4 mb-3 text-center">
+                                @if ($dokumen->thumbnail_path)
+                                  <img src="{{ asset('storage/dokumen/thumbnail/' . $dokumen->thumbnail_path) }}"
+                                    class="img-fluid rounded shadow" alt="Thumbnail">
+                                @else
+                                  <img src="{{ asset('images/default_thumbnail.png') }}" class="img-fluid rounded shadow"
+                                    alt="No Thumbnail">
+                                @endif
+                              </div>
+
+                              {{-- Informasi Dokumen --}}
+                              <div class="col-md-8">
+                                <h5>{{ $dokumen->judul }}</h5>
+                                <p><strong>Kategori:</strong> {{ $dokumen->kategori->nama_kategori ?? '-' }}</p>
+                                <p><strong>Tahun Publikasi:</strong> {{ $dokumen->tahun_publikasi }}</p>
+                                <p><strong>Kata Kunci:</strong> {{ $dokumen->kata_kunci }}</p>
+                                <p><strong>Fakultas:</strong> {{ $dokumen->fakultas->nama_fakultas ?? '-' }}</p>
+                                <p><strong>Jurusan:</strong> {{ $dokumen->jurusan->nama_jurusan ?? '-' }}</p>
+                                @if ($dokumen->dosen)
+                                  <p><strong>Dosen Pembimbing:</strong> {{ $dokumen->dosen->name }}</p>
+                                @endif
+                                <hr>
+                                <p><strong>Abstrak:</strong></p>
+                                <p>{{ $dokumen->abstrak }}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <a href="{{ route('auth.dokumen.download', $dokumen) }}" class="btn btn-success">
+                              <i class="fa-solid fa-download"></i> Unduh Dokumen
+                            </a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   @endforeach
                 </tbody>
               </table>

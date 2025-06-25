@@ -60,6 +60,12 @@
                       <td>{{ $item->jurusan->nama_jurusan ?? '-' }}</td>
                       <td>
                         <ul class="action">
+                          <li class="info" style="margin-right: 7px">
+                            <button type="button" class="btn p-0 border-0 bg-transparent text-secondary"
+                              data-bs-toggle="modal" data-bs-target="#modalDetailDokumen{{ $index }}">
+                              <i class="fa-solid fa-circle-info"></i>
+                            </button>
+                          </li>
                           <li class="verify">
                             <form id="verify-form-{{ $item->id }}"
                               action="{{ auth()->user()->hasRole('admin')
@@ -77,6 +83,55 @@
                         </ul>
                       </td>
                     </tr>
+                    <!-- Modal Detail Dokumen -->
+                    <div class="modal fade" id="modalDetailDokumen{{ $index }}" tabindex="-1"
+                      aria-labelledby="modalLabel{{ $index }}" aria-hidden="true">
+                      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="modalLabel{{ $index }}">Detail Dokumen</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                              aria-label="Tutup"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row">
+                              {{-- Thumbnail --}}
+                              <div class="col-md-4 mb-3 text-center">
+                                @if ($item->thumbnail_path)
+                                  <img src="{{ asset('storage/dokumen/thumbnail/' . $item->thumbnail_path) }}"
+                                    class="img-fluid rounded shadow" alt="Thumbnail">
+                                @else
+                                  <img src="{{ asset('images/default_thumbnail.png') }}" class="img-fluid rounded shadow"
+                                    alt="No Thumbnail">
+                                @endif
+                              </div>
+
+                              {{-- Informasi Dokumen --}}
+                              <div class="col-md-8">
+                                <h5>{{ $item->judul }}</h5>
+                                <p><strong>Kategori:</strong> {{ $item->kategori->nama_kategori ?? '-' }}</p>
+                                <p><strong>Tahun Publikasi:</strong> {{ $item->tahun_publikasi }}</p>
+                                <p><strong>Kata Kunci:</strong> {{ $item->kata_kunci }}</p>
+                                <p><strong>Fakultas:</strong> {{ $item->fakultas->nama_fakultas ?? '-' }}</p>
+                                <p><strong>Jurusan:</strong> {{ $item->jurusan->nama_jurusan ?? '-' }}</p>
+                                @if ($item->dosen)
+                                  <p><strong>Dosen Pembimbing:</strong> {{ $item->dosen->name }}</p>
+                                @endif
+                                <hr>
+                                <p><strong>Abstrak:</strong></p>
+                                <p>{{ $item->abstrak }}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <a href="{{ route('auth.dokumen.download', $item) }}" class="btn btn-success">
+                              <i class="fa-solid fa-download"></i> Unduh Dokumen
+                            </a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   @endforeach
                 </tbody>
               </table>

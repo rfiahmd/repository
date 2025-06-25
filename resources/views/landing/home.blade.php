@@ -203,7 +203,7 @@
                         <div class="team-member-photo relative">
                             <img src="{{ asset('assetLP') }}/images/team/berry.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                {{-- <a href="books.html" class="btn btn-default">See Prolife</a> --}}
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
                         <div class="team-member-photo relative">
                             <img src="{{ asset('assetLP') }}/images/team/rofi.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                {{-- <a href="books.html" class="btn btn-default">See Prolife</a> --}}
                             </div>
                         </div>
                         <div class="space-20"></div>
@@ -243,7 +243,7 @@
                         <div class="team-member-photo relative">
                             <img src="{{ asset('assetLP') }}/images/team/ifa.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                {{-- <a href="books.html" class="btn btn-default">See Prolife</a> --}}
                             </div>
                         </div>
                     </div>
@@ -253,7 +253,7 @@
                         <div class="team-member-photo relative">
                             <img src="{{ asset('assetLP') }}/images/team/danu.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                {{-- <a href="books.html" class="btn btn-default">See Prolife</a> --}}
                             </div>
                         </div>
                         <div class="space-20"></div>
@@ -283,7 +283,7 @@
                         <div class="team-member-photo relative">
                             <img src="{{ asset('assetLP') }}/images/team/widya.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                {{-- <a href="books.html" class="btn btn-default">See Prolife</a> --}}
                             </div>
                         </div>
                     </div>
@@ -293,7 +293,7 @@
                         <div class="team-member-photo relative">
                             <img src="{{ asset('assetLP') }}/images/team/ana.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                {{-- <a href="books.html" class="btn btn-default">See Prolife</a> --}}
                             </div>
                         </div>
                         <div class="space-20"></div>

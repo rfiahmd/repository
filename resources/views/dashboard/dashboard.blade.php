@@ -22,8 +22,8 @@
                 <div class="greeting-user">
                   <h2 class="f-w-600">Selamat Datang <br>@namalengkap(Auth::user()->name)!</h2>
                   <p>Here whats happing in your account today</p>
-                  <div class="whatsnew-btn"><a class="btn btn-outline-white" href="user-profile.html" target="_blank">View
-                      Profile</a></div>
+                  {{-- <div class="whatsnew-btn"><a class="btn btn-outline-white" href="user-profile.html" target="_blank">View
+                      Profile</a></div> --}}
                 </div>
               </div>
               <div>
